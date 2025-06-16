@@ -8,8 +8,7 @@
   <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.15/babel.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -23,13 +22,6 @@
       background: linear-gradient(-45deg, #ec4899, #06b6d4, #9333ea, #3b82f6);
       background-size: 400% 400%;
       animation: gradient 15s ease infinite;
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .fade-in-up {
-      animation: fadeInUp 1s ease-out forwards;
     }
   </style>
 </head>
@@ -45,9 +37,7 @@
               <span class="text-2xl font-bold text-gray-800">Aishwarya Chand</span>
               <div class="flex items-center space-x-4">
                 {["Home", "Experience", "Projects", "Blog", "Contact", "Skills"].map((section) => (
-                  <a href={`#${section.toLowerCase()}`} class="text-gray-600 hover:text-pink-600" key={section}>
-                    {section}
-                  </a>
+                  <a href={`#${section.toLowerCase()}`} class="text-gray-600 hover:text-pink-600" key={section}>{section}</a>
                 ))}
               </div>
             </div>
@@ -58,200 +48,41 @@
 
     function Hero() {
       return (
-        <section id="home" class="min-h-screen flex items-center justify-center text-white animated-gradient px-4">
-          <div class="text-center">
-            <img
-              src="https://aishwaryachand.github.io/assets/1746597056907.jpeg"
-              alt="Aishwarya Chand"
-              class="w-52 h-52 md:w-60 md:h-60 rounded-full mx-auto mb-6 shadow-xl ring-4 ring-white ring-offset-4 ring-offset-pink-400 transition-transform duration-300 hover:scale-105"
-            />
-            <h1 class="text-4xl md:text-5xl font-bold mb-3 fade-in-up">Hi, I'm Aishwarya Chand</h1>
-            <p class="text-lg md:text-xl mb-6 opacity-90 fade-in-up" style={{ animationDelay: '0.2s' }}>
-              AI Engineer • Product Thinker • Impact Maker
-            </p>
-            <div class="flex justify-center space-x-4 fade-in-up" style={{ animationDelay: '0.4s' }}>
-              <a
-                href="#projects"
-                class="bg-white text-pink-600 px-6 py-3 rounded-full font-semibold shadow hover:bg-pink-100 transition"
-              >
-                View My Work
-              </a>
-              <a
-                href="/resume.pdf"
-                download
-                class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-pink-600 transition"
-              >
-                Download Resume
-              </a>
-            </div>
+        <section id="home" class="min-h-screen flex flex-col justify-center items-center text-white animated-gradient px-4 pt-20">
+          <img
+            src="https://aishwaryachand.github.io/assets/1746597056907.jpeg"
+            alt="Aishwarya Chand"
+            class="w-60 h-60 md:w-64 md:h-64 rounded-full mx-auto mb-6 shadow-xl hover:scale-105 transition-transform duration-300"
+          />
+          <h1 class="text-5xl md:text-6xl font-extrabold mb-3">Hi, I'm Aishwarya Chand</h1>
+          <p class="text-xl md:text-2xl font-light tracking-wide mb-6">AI Engineer • Product Thinker • Impact Maker</p>
+          <div class="flex space-x-4">
+            <a href="#projects" class="bg-white text-pink-600 px-6 py-3 rounded-full font-semibold hover:bg-pink-100 transition">View My Work</a>
+            <a href="/resume.pdf" download class="border-2 border-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-pink-600 transition">Download Resume</a>
           </div>
         </section>
       );
     }
 
-    function Experience() {
-      const experiences = [
-        {
-          title: "Senior AI Engineer",
-          company: "Tech Corp",
-          duration: "Jan 2022 - Present",
-          description: "Led development of ML models for predictive analytics, improving business outcomes by 20%.",
-        },
-        {
-          title: "AI Researcher",
-          company: "AI Innovations",
-          duration: "Jun 2019 - Dec 2021",
-          description: "Implemented NLP algorithms for sentiment analysis used in production.",
-        },
-        {
-          title: "ML Intern",
-          company: "Data Solutions",
-          duration: "May 2018 - Aug 2018",
-          description: "Built object detection models for real-time surveillance.",
-        },
-      ];
-
+    function AboutMe() {
       return (
-        <section id="experience" class="py-20 bg-white">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center mb-12">Experience</h2>
-            <div class="space-y-8">
-              {experiences.map((exp) => (
-                <div key={exp.title} class="bg-gray-100 p-6 rounded-lg shadow-md">
-                  <h3 class="text-xl font-semibold">{exp.title}</h3>
-                  <p class="text-gray-600">{exp.company} | {exp.duration}</p>
-                  <p class="text-gray-600 mt-2">{exp.description}</p>
-                </div>
-              ))}
+        <section id="about" class="py-20 bg-white">
+          <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 class="text-4xl font-bold text-pink-600 mb-6 border-b-4 inline-block border-pink-400">About Me</h2>
+              <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                Hi, I’m <span class="font-bold text-pink-600">Aishwarya Chand</span> — a passionate AI Engineer who thrives at the intersection of data, product, and impact. With hands-on experience across startups and academic labs, I build intelligent systems that are not only technically sound but also human-centered.
+              </p>
+              <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                I enjoy working in collaborative, fast-paced environments where <span class="font-semibold text-blue-600">innovation</span>, <span class="font-semibold text-blue-600">continuous learning</span>, and <span class="font-semibold text-blue-600">measurable outcomes</span> are at the forefront.
+              </p>
+              <p class="text-gray-700 text-lg leading-relaxed">
+                When I'm not developing, I'm mentoring others, exploring new trends, and contributing to the global developer community.
+              </p>
+              <a href="#contact" class="inline-block mt-6 bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-full font-semibold">Let's Connect</a>
             </div>
-          </div>
-        </section>
-      );
-    }
-
-    function Projects() {
-      const projects = [
-        {
-          title: "AI-Powered Chatbot",
-          description: "Conversational AI using NLP + Deep Learning.",
-          link: "#",
-        },
-        {
-          title: "Image Recognition System",
-          description: "Computer vision app using CNNs with high accuracy.",
-          link: "#",
-        },
-        {
-          title: "Predictive Analytics Dashboard",
-          description: "Cloud-based forecasting with interactive visualizations.",
-          link: "#",
-        },
-      ];
-
-      return (
-        <section id="projects" class="py-20 bg-gray-100">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center mb-12">My Projects</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {projects.map((project) => (
-                <div key={project.title} class="bg-white p-6 rounded-lg shadow-md">
-                  <h3 class="text-xl font-semibold mb-2">{project.title}</h3>
-                  <p class="text-gray-600 mb-4">{project.description}</p>
-                  <a href={project.link} class="text-pink-600 hover:underline">Learn More</a>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      );
-    }
-
-    function Blog() {
-      const posts = [
-        {
-          title: "Building Scalable AI Models",
-          excerpt: "A deep dive into optimizing machine learning systems.",
-          link: "#",
-        },
-        {
-          title: "The Future of NLP",
-          excerpt: "Exploring the next wave of language technologies.",
-          link: "#",
-        },
-        {
-          title: "Ethics in AI Development",
-          excerpt: "Bias, fairness, and responsible AI practices.",
-          link: "#",
-        },
-      ];
-
-      return (
-        <section id="blog" class="py-20 bg-white">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center mb-12">My Blog</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post) => (
-                <div key={post.title} class="bg-gray-100 p-6 rounded-lg shadow-md">
-                  <h3 class="text-xl font-semibold mb-2">{post.title}</h3>
-                  <p class="text-gray-600 mb-4">{post.excerpt}</p>
-                  <a href={post.link} class="text-pink-600 hover:underline">Read More</a>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      );
-    }
-
-    function Contact() {
-      return (
-        <section id="contact" class="py-20 bg-gray-100">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center mb-12">Get in Touch</h2>
-            <div class="max-w-lg mx-auto text-center">
-              <p class="text-gray-600 mb-6">Let’s build something amazing together. Reach out via:</p>
-              <div class="flex justify-center space-x-6">
-                <a href="mailto:your.email@example.com" class="text-pink-600 hover:text-pink-800">Email</a>
-                <a href="https://linkedin.com/in/yourprofile" class="text-pink-600 hover:text-pink-800">LinkedIn</a>
-                <a href="https://github.com/yourusername" class="text-pink-600 hover:text-pink-800">GitHub</a>
-              </div>
-            </div>
-          </div>
-        </section>
-      );
-    }
-
-    function Skills() {
-      const skills = [
-        { name: "Python", icon: "🐍" },
-        { name: "TensorFlow", icon: "🧠" },
-        { name: "PyTorch", icon: "🔥" },
-        { name: "NLP", icon: "📝" },
-        { name: "Computer Vision", icon: "👁️" },
-        { name: "Cloud AI", icon: "☁️" },
-        { name: "Scikit-learn", icon: "📊" },
-        { name: "Keras", icon: "🧩" },
-        { name: "Deep Learning", icon: "🧬" },
-        { name: "Reinforcement Learning", icon: "🎮" },
-        { name: "AWS SageMaker", icon: "☁️" },
-        { name: "GCP AI Platform", icon: "☁️" },
-        { name: "Docker", icon: "🐳" },
-        { name: "Kubernetes", icon: "⚙️" },
-        { name: "SQL", icon: "🗄️" },
-        { name: "Data Viz", icon: "📈" },
-      ];
-
-      return (
-        <section id="skills" class="py-20 bg-white">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center mb-12">My Skills</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-              {skills.map((skill) => (
-                <div key={skill.name} class="flex items-center space-x-3 p-3 bg-gray-100 rounded-lg shadow-sm">
-                  <span class="text-2xl">{skill.icon}</span>
-                  <span class="text-base font-medium">{skill.name}</span>
-                </div>
-              ))}
+            <div>
+              <img src="https://aishwaryachand.github.io/assets/graduation_photo.jpeg" alt="Graduation" class="rounded-xl shadow-lg w-full object-cover" />
             </div>
           </div>
         </section>
@@ -263,11 +94,7 @@
         <div>
           <Navbar />
           <Hero />
-          <Experience />
-          <Projects />
-          <Blog />
-          <Contact />
-          <Skills />
+          <AboutMe />
         </div>
       );
     }
