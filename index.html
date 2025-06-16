@@ -2,118 +2,155 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Aishwarya Chand</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aishwarya Chand – Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.15/babel.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
   <style>
     body {
       font-family: 'Inter', sans-serif;
     }
-    .bg-tech {
-      background: linear-gradient(to bottom right, #1f1f1f, #2e2e2e);
+    /* animated diagonal stripes like screenshot */
+    .striped-bg {
+      background-image: repeating-linear-gradient(
+        -45deg,
+        rgba(255, 255, 255, 0.05) 0 25px,
+        transparent 25px 50px
+      );
+    }
+    .hero-gradient {
+      background: linear-gradient(135deg, #4f46e5 0%, #9333ea 45%, #ec4899 80%, #06b6d4 100%);
     }
   </style>
 </head>
-<body class="bg-neutral-900 text-white">
+<body class="bg-gray-50 text-gray-900">
   <div id="root"></div>
 
   <script type="text/babel">
+    /** NAVBAR **/
     function Navbar() {
+      const sections = [
+        'Home',
+        'About',
+        'Education',
+        'Experience',
+        'Projects',
+        'Blog',
+        'Skills',
+        'Contact',
+      ];
       return (
-        <nav class="bg-black shadow-md fixed w-full z-10 border-b border-neutral-800">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-              <span class="text-2xl font-bold text-white">Aishwarya Chand</span>
-              <div class="flex items-center space-x-4">
-                {["Home", "Experience", "Projects", "Blog", "Contact", "Skills"].map((section) => (
-                  <a href={`#${section.toLowerCase()}`} class="text-gray-400 hover:text-white" key={section}>{section}</a>
-                ))}
-              </div>
+        <nav class="fixed inset-x-0 top-0 z-20 bg-white/80 backdrop-blur shadow-sm">
+          <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
+            <span class="text-xl font-extrabold text-gray-800">Aishwarya Chand</span>
+            <div class="hidden space-x-6 md:flex">
+              {sections.map((s) => (
+                <a key={s} href={`#${s.toLowerCase()}`} class="text-gray-600 hover:text-blue-600 text-sm font-medium">
+                  {s}
+                </a>
+              ))}
             </div>
           </div>
         </nav>
       );
     }
 
+    /** HERO **/
     function Hero() {
       return (
-        <section id="home" class="min-h-screen flex flex-col justify-center items-center text-white bg-tech px-4 pt-20">
+        <section id="home" class="hero-gradient striped-bg flex min-h-screen flex-col items-center justify-center px-4 pt-20 text-center text-white">
           <img
             src="https://aishwaryachand.github.io/assets/1746597056907.jpeg"
             alt="Aishwarya Chand"
-            class="w-60 h-60 md:w-64 md:h-64 rounded-full mx-auto mb-6 shadow-xl hover:scale-105 transition-transform duration-300"
+            class="mb-6 h-60 w-60 rounded-full border-4 border-white shadow-xl transition-transform duration-300 hover:scale-105"
           />
-          <h1 class="text-5xl md:text-6xl font-extrabold mb-3">Hi, I'm Aishwarya Chand</h1>
-          <p class="text-xl md:text-2xl font-light tracking-wide mb-6 text-gray-300">AI Engineer • Product Thinker • Impact Maker</p>
-          <div class="flex space-x-4">
-            <a href="#projects" class="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-neutral-200 transition">View My Work</a>
-            <a href="/resume.pdf" download class="border-2 border-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-black transition">Download Resume</a>
+          <h1 class="mb-4 text-4xl font-extrabold md:text-6xl">Hi, I'm Aishwarya Chand</h1>
+          <p class="mb-8 text-lg font-light md:text-2xl">AI Engineer · Product Thinker · Impact Maker</p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a
+              href="#projects"
+              class="rounded-full bg-white px-8 py-3 font-semibold text-blue-600 shadow hover:bg-blue-50"
+            >
+              View My Work
+            </a>
+            <a
+              href="/resume.pdf"
+              download
+              class="rounded-full border-2 border-white px-8 py-3 font-semibold hover:bg-white hover:text-blue-600"
+            >
+              Download Resume
+            </a>
           </div>
         </section>
       );
     }
 
+    /** ABOUT **/
     function AboutMe() {
       return (
-        <section id="about" class="py-20 bg-neutral-800 text-white">
-          <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <section id="about" class="bg-white py-20">
+          <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 md:grid-cols-2">
             <div>
-              <h2 class="text-4xl font-bold text-white mb-6 border-b-4 inline-block border-gray-500">About Me</h2>
-              <p class="text-gray-300 text-lg leading-relaxed mb-6">
-                Hi, I’m <span class="font-bold text-white">Aishwarya Chand</span> — a passionate AI Engineer who thrives at the intersection of data, product, and impact. With hands-on experience across startups and academic labs, I build intelligent systems that are not only technically sound but also human-centered.
+              <h2 class="mb-6 inline-block border-b-4 border-blue-600 text-4xl font-bold">About Me</h2>
+              <p class="mb-6 text-lg leading-relaxed text-gray-700">
+                I’m <span class="font-bold">Aishwarya Chand</span>, a passionate AI Engineer who thrives at the
+                intersection of data, product, and impact. I love transforming complex ideas into intelligent,
+                human‑centered systems that drive measurable value.
               </p>
-              <p class="text-gray-300 text-lg leading-relaxed mb-6">
-                I enjoy working in collaborative, fast-paced environments where <span class="font-semibold text-white">innovation</span>, <span class="font-semibold text-white">continuous learning</span>, and <span class="font-semibold text-white">measurable outcomes</span> are at the forefront.
+              <p class="mb-6 text-lg leading-relaxed text-gray-700">
+                My expertise spans <strong>LLMs, computer vision,</strong> and <strong>data science</strong>, backed by
+                experience shipping production‑grade solutions at companies like <strong>TCS</strong> and research labs
+                at <strong>University at Buffalo</strong>.
               </p>
-              <p class="text-gray-300 text-lg leading-relaxed">
-                When I'm not developing, I'm mentoring others, exploring new trends, and contributing to the global developer community.
-              </p>
-              <a href="#contact" class="inline-block mt-6 bg-white text-black hover:bg-neutral-300 px-6 py-3 rounded-full font-semibold">Let's Connect</a>
+              <a
+                href="#contact"
+                class="mt-4 inline-block rounded-full bg-blue-600 px-8 py-3 font-semibold text-white hover:bg-blue-700"
+              >
+                Let’s Connect
+              </a>
             </div>
-            <div>
-              <img src="https://aishwaryachand.github.io/assets/graduation_photo.jpeg" alt="Graduation" class="rounded-xl shadow-lg w-full object-cover" />
-            </div>
+            <img
+              src="https://aishwaryachand.github.io/assets/graduation_photo.jpeg"
+              alt="Graduation"
+              class="w-full rounded-xl shadow-lg"
+            />
           </div>
         </section>
       );
     }
 
-    function Experience() {
-      const experiences = [
+    /** EDUCATION **/
+    function Education() {
+      const schools = [
         {
-          title: "Senior AI Engineer",
-          company: "Tech Corp",
-          duration: "Jan 2022 - Present",
-          description: "Led development of ML models for predictive analytics, improving business outcomes by 20%.",
+          degree: 'M.S. Computer Science (AI)',
+          school: 'University at Buffalo',
+          period: 'Jan 2024 – May 2025',
         },
         {
-          title: "AI Researcher",
-          company: "AI Innovations",
-          duration: "Jun 2019 - Dec 2021",
-          description: "Implemented NLP algorithms for sentiment analysis used in production.",
-        },
-        {
-          title: "ML Intern",
-          company: "Data Solutions",
-          duration: "May 2018 - Aug 2018",
-          description: "Built object detection models for real-time surveillance.",
+          degree: 'B.Tech Computer Science',
+          school: 'Jamia Hamdard University',
+          period: 'Jul 2018 – Jun 2022',
         },
       ];
-
       return (
-        <section id="experience" class="py-20 bg-neutral-900">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-white text-center mb-12">Experience</h2>
+        <section id="education" class="py-20 bg-gray-50">
+          <div class="mx-auto max-w-6xl px-6">
+            <h2 class="mb-12 text-center text-4xl font-bold">Education</h2>
             <div class="space-y-8">
-              {experiences.map((exp) => (
-                <div key={exp.title} class="bg-neutral-800 p-6 rounded-lg shadow-md">
-                  <h3 class="text-xl font-semibold text-white">{exp.title}</h3>
-                  <p class="text-gray-400">{exp.company} | {exp.duration}</p>
-                  <p class="text-gray-300 mt-2">{exp.description}</p>
+              {schools.map((s) => (
+                <div key={s.degree} class="rounded-lg bg-white p-6 shadow">
+                  <h3 class="text-xl font-semibold text-blue-700">{s.degree}</h3>
+                  <p class="text-gray-600">{s.school}</p>
+                  <p class="text-gray-400 text-sm">{s.period}</p>
                 </div>
               ))}
             </div>
@@ -122,35 +159,91 @@
       );
     }
 
+    /** EXPERIENCE **/
+    function Experience() {
+      const jobs = [
+        {
+          title: 'Data Science Intern',
+          company: 'Human Behavior Modeling Lab, University at Buffalo',
+          period: 'Jan 2025 – Present',
+          bullets: [
+            'Fine‑tuned Differential Transformers for ASL → text, boosting BLEU by +5.5.',
+            'Scaled data pipelines to 5M+ video frames, improving robustness.',
+            'Deployed F1‑0.88 classifier, reducing gloss‑level error by 21%.',
+          ],
+        },
+        {
+          title: 'Data Scientist',
+          company: 'Tata Consultancy Services',
+          period: 'Oct 2022 – Jan 2024',
+          bullets: [
+            'Deployed triage chatbot (AWS Lex, Lambda), cutting wait time 45%.',
+            'Led LSTM retention model → +12% re‑engagement.',
+            'Built KPI dashboards in Tableau for product analytics.',
+          ],
+        },
+        {
+          title: 'Software Engineer',
+          company: '3Pillar Global',
+          period: 'Dec 2021 – Jul 2022',
+          bullets: ['Optimized SQL & indexing → 35% lower latency in analytics APIs.'],
+        },
+      ];
+      return (
+        <section id="experience" class="bg-white py-20">
+          <div class="mx-auto max-w-6xl px-6">
+            <h2 class="mb-12 text-center text-4xl font-bold">Experience</h2>
+            <div class="space-y-10">
+              {jobs.map((job) => (
+                <div key={job.title} class="rounded-lg border-l-4 border-blue-600 bg-gray-50 p-6 shadow">
+                  <h3 class="text-xl font-semibold text-gray-800">
+                    {job.title} · <span class="text-blue-700">{job.company}</span>
+                  </h3>
+                  <p class="text-sm text-gray-500 mb-4">{job.period}</p>
+                  <ul class="ml-4 list-disc space-y-2 text-gray-700">
+                    {job.bullets.map((b, i) => (
+                      <li key={i}>{b}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    /** PROJECTS **/
     function Projects() {
       const projects = [
         {
-          title: "AI-Powered Chatbot",
-          description: "Conversational AI using NLP + Deep Learning.",
-          link: "#",
+          title: 'InsightMate – LLM‑powered Feedback Analyzer',
+          desc: 'Secure local analysis over 100K+ reviews with RAG & LLaMA‑2; 91% labeling accuracy.',
+          link: 'https://github.com/aishwaryachand/InsightMate',
         },
         {
-          title: "Image Recognition System",
-          description: "Computer vision app using CNNs with high accuracy.",
-          link: "#",
+          title: 'MindBridge – Mental‑Health Chatbot',
+          desc: 'Multilingual chatbot leveraging GraphRAG + Qwen2, FastAPI backend.',
+          link: 'https://github.com/aishwaryachand/MindBridge',
         },
         {
-          title: "Predictive Analytics Dashboard",
-          description: "Cloud-based forecasting with interactive visualizations.",
-          link: "#",
+          title: 'Customer Churn Prediction & Explainability',
+          desc: 'Random Forest ensemble (ROC‑AUC 0.90) + SHAP insights on Telco dataset.',
+          link: '#',
         },
       ];
-
       return (
-        <section id="projects" class="py-20 bg-gray-100">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center mb-12">My Projects</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {projects.map((project) => (
-                <div key={project.title} class="bg-white p-6 rounded-lg shadow-md">
-                  <h3 class="text-xl font-semibold mb-2">{project.title}</h3>
-                  <p class="text-gray-600 mb-4">{project.description}</p>
-                  <a href={project.link} class="text-pink-600 hover:underline">Learn More</a>
+        <section id="projects" class="bg-gray-50 py-20">
+          <div class="mx-auto max-w-7xl px-6">
+            <h2 class="mb-12 text-center text-4xl font-bold">Projects</h2>
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {projects.map((p) => (
+                <div key={p.title} class="rounded-xl bg-white p-6 shadow hover:shadow-lg transition">
+                  <h3 class="text-xl font-semibold text-blue-700 mb-2">{p.title}</h3>
+                  <p class="text-gray-700 mb-4 text-sm">{p.desc}</p>
+                  <a href={p.link} target="_blank" class="font-semibold text-blue-600 hover:underline">
+                    View Repo →
+                  </a>
                 </div>
               ))}
             </div>
@@ -159,35 +252,37 @@
       );
     }
 
+    /** BLOG (already defined) **/
     function Blog() {
       const posts = [
         {
-          title: "Building Scalable AI Models",
-          excerpt: "A deep dive into optimizing machine learning systems.",
-          link: "#",
+          title: 'Difference Between fit(), transform(), and fit_transform() in scikit-learn',
+          excerpt: 'Understanding preprocessing essentials in scikit‑learn.',
+          link: 'https://aishwarya-chand.medium.com/difference-fit-transform-and-fit-transform-method-in-scikit-learn-b0a4efcab804',
         },
         {
-          title: "The Future of NLP",
-          excerpt: "Exploring the next wave of language technologies.",
-          link: "#",
+          title: 'Building LLMs from Scratch – Part 1: Concepts & Architecture',
+          excerpt: 'A hands‑on guide to LLM internals and transformer architecture.',
+          link: 'https://aishwarya-chand.medium.com/building-llms-from-scratch-part-1-concepts-architecture-and-foundations-55db4bccfb3f',
         },
         {
-          title: "Ethics in AI Development",
-          excerpt: "Bias, fairness, and responsible AI practices.",
-          link: "#",
+          title: 'Navigating Grad Life at University at Buffalo',
+          excerpt: 'Personal insights & hacks for thriving as an international grad.',
+          link: 'https://aishwarya-chand.medium.com/navigating-grad-life-at-university-at-buffalo-my-personal-experience-1f827f25c5d0',
         },
       ];
-
       return (
-        <section id="blog" class="py-20 bg-white">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center mb-12">My Blog</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <section id="blog" class="bg-gradient-to-br from-purple-100 to-pink-50 py-20">
+          <div class="mx-auto max-w-7xl px-6">
+            <h2 class="mb-12 text-center text-4xl font-bold text-gray-900">Featured Blogs</h2>
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
               {posts.map((post) => (
-                <div key={post.title} class="bg-gray-100 p-6 rounded-lg shadow-md">
-                  <h3 class="text-xl font-semibold mb-2">{post.title}</h3>
-                  <p class="text-gray-600 mb-4">{post.excerpt}</p>
-                  <a href={post.link} class="text-pink-600 hover:underline">Read More</a>
+                <div key={post.title} class="rounded-xl bg-white p-6 shadow hover:shadow-lg transition">
+                  <h3 class="mb-2 text-lg font-semibold text-gray-800">{post.title}</h3>
+                  <p class="mb-4 text-sm text-gray-600">{post.excerpt}</p>
+                  <a href={post.link} target="_blank" class="font-semibold text-blue-600 hover:underline">
+                    Read More →
+                  </a>
                 </div>
               ))}
             </div>
@@ -196,54 +291,29 @@
       );
     }
 
-    function Contact() {
-      return (
-        <section id="contact" class="py-20 bg-gray-100">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center mb-12">Get in Touch</h2>
-            <div class="max-w-lg mx-auto text-center">
-              <p class="text-gray-600 mb-6">Let’s build something amazing together. Reach out via:</p>
-              <div class="flex justify-center space-x-6">
-                <a href="mailto:your.email@example.com" class="text-pink-600 hover:text-pink-800">Email</a>
-                <a href="https://linkedin.com/in/yourprofile" class="text-pink-600 hover:text-pink-800">LinkedIn</a>
-                <a href="https://github.com/yourusername" class="text-pink-600 hover:text-pink-800">GitHub</a>
-              </div>
-            </div>
-          </div>
-        </section>
-      );
-    }
-
+    /** SKILLS **/
     function Skills() {
       const skills = [
-        { name: "Python", icon: "🐍" },
-        { name: "TensorFlow", icon: "🧠" },
-        { name: "PyTorch", icon: "🔥" },
-        { name: "NLP", icon: "📝" },
-        { name: "Computer Vision", icon: "👁️" },
-        { name: "Cloud AI", icon: "☁️" },
-        { name: "Scikit-learn", icon: "📊" },
-        { name: "Keras", icon: "🧩" },
-        { name: "Deep Learning", icon: "🧬" },
-        { name: "Reinforcement Learning", icon: "🎮" },
-        { name: "AWS SageMaker", icon: "☁️" },
-        { name: "GCP AI Platform", icon: "☁️" },
-        { name: "Docker", icon: "🐳" },
-        { name: "Kubernetes", icon: "⚙️" },
-        { name: "SQL", icon: "🗄️" },
-        { name: "Data Viz", icon: "📈" },
+        'Python',
+        'PyTorch',
+        'TensorFlow',
+        'SQL',
+        'AWS',
+        'Transformers',
+        'Hugging Face',
+        'Docker',
+        'A/B Testing',
+        'Tableau',
       ];
-
       return (
-        <section id="skills" class="py-20 bg-white">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center mb-12">My Skills</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-              {skills.map((skill) => (
-                <div key={skill.name} class="flex items-center space-x-3 p-3 bg-gray-100 rounded-lg shadow-sm">
-                  <span class="text-2xl">{skill.icon}</span>
-                  <span class="text-base font-medium">{skill.name}</span>
-                </div>
+        <section id="skills" class="bg-white py-20">
+          <div class="mx-auto max-w-6xl px-6">
+            <h2 class="mb-12 text-center text-4xl font-bold">Skills</h2>
+            <div class="flex flex-wrap justify-center gap-4">
+              {skills.map((s) => (
+                <span key={s} class="rounded-lg bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700 shadow">
+                  {s}
+                </span>
               ))}
             </div>
           </div>
@@ -251,22 +321,44 @@
       );
     }
 
+    /** CONTACT **/
+    function Contact() {
+      return (
+        <section id="contact" class="bg-gray-50 py-20">
+          <div class="mx-auto max-w-xl px-6 text-center">
+            <h2 class="mb-6 text-4xl font-bold">Get in Touch</h2>
+            <p class="mb-8 text-gray-700">
+              Want to collaborate or have a question? Reach out and I’ll respond as soon as possible!
+            </p>
+            <div class="flex justify-center space-x-6 text-xl">
+              <a href="mailto:aishwarya7811@gmail.com" class="text-blue-600 hover:text-blue-800">Email</a>
+              <a href="https://linkedin.com/in/aishwarya-chand" class="text-blue-600 hover:text-blue-800">LinkedIn</a>
+              <a href="https://github.com/aishwaryachand" class="text-blue-600 hover:text-blue-800">GitHub</a>
+              <a href="https://aishwarya-chand.medium.com" class="text-blue-600 hover:text-blue-800">Medium</a>
+            </div>
+          </div>
+        </section>
+      );
+    }
 
+    /****************** APP *******************/
     function App() {
       return (
         <div>
           <Navbar />
           <Hero />
+          <AboutMe />
+          <Education />
           <Experience />
           <Projects />
           <Blog />
-          <Contact />
           <Skills />
+          <Contact />
         </div>
       );
     }
 
-    const root = ReactDOM.createRoot(document.getElementById("root"));
+    const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<App />);
   </script>
 </body>
