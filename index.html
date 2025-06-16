@@ -67,16 +67,16 @@
         <div>
           <h2 class="mono mb-6 inline-block border-b-4 border-blue-600 text-4xl font-bold">About Me</h2>
           <p class="mb-6 text-lg leading-relaxed text-gray-700">
-            Hi, I’m <span class="font-bold">Aishwarya Chand</span> — part engineer, part product nerd, part caffeine-powered optimizer of all things inefficient.
+            Hi, I’m <span class="font-bold">Aishwarya Chand</span> part engineer, part product nerd, part caffeine-powered optimizer of all things inefficient.
           </p>
           <p class="mb-6 text-lg leading-relaxed text-gray-700">
-            By day, I fine-tune Transformers and architect AI pipelines that (hopefully) don’t hallucinate. By night, I’m usually debugging things that were “working 5 minutes ago.” From deploying production chatbots to building sign-language models, I craft ML systems that actually help humans — not just benchmarks.
+            By day, I fine-tune Transformers and architect AI pipelines that (hopefully) don’t hallucinate. By night, I’m usually debugging things that were working 5 minutes ago. From deploying production chatbots to building sign-language models, I craft ML systems that actually help humans not just benchmarks.
           </p>
           <p class="mb-6 text-lg leading-relaxed text-gray-700">
             I believe clean code is a love language, metrics matter but impact matters more, and no model is complete without a good story (and an ablation study).
           </p>
           <p class="mb-6 text-lg leading-relaxed text-gray-700">
-            When I’m not wrangling data or arguing with my models, you’ll find me mentoring juniors, writing long-overdue Medium blogs, or volunteering at nonprofits — usually near food, people, or both.
+            When I’m not arguing with my models, you’ll find me  writing long-overdue Medium blogs, cooking something new or trying to look up a new place to explore.
           </p>
            <a href="#contact" class="mt-4 inline-block rounded-full bg-blue-600 px-8 py-3 font-semibold text-white hover:bg-blue-700">Let’s Connect</a>
           </div>
@@ -110,8 +110,8 @@
     };
 
     /**************** EXPERIENCE ****************/
-    const Experience=()=>{
-      const jobs=[
+   /* const Experience=()=>{
+     const jobs=[
         {title:'Data Science Intern',company:'Human Behavior Modeling Lab, University at Buffalo',period:'Jan 2025 – Present',bullets:['Fine‑tuned Differential Transformers for ASL → text, boosting BLEU by +5.5.','Scaled data pipelines to 5M+ video frames, improving robustness.','Deployed F1‑0.88 classifier, reducing gloss‑level error by 21%.']},
         {title:'Data Scientist',company:'Tata Consultancy Services',period:'Oct 2022 – Jan 2024',bullets:['Deployed triage chatbot (AWS Lex, Lambda), cutting wait time 45%.','Led LSTM retention model → +12% re‑engagement.','Built KPI dashboards in Tableau for product analytics.']},
         {title:'Software Engineer',company:'3Pillar Global',period:'Dec 2021 – Jul 2022',bullets:['Optimized SQL & indexing → 35% lower latency in analytics APIs.']},
@@ -134,7 +134,62 @@
           </div>
         </section>
       );
-    };
+    }; */
+  const Experience = () => {
+    const experiences = [
+      {
+        company: 'Human Behavior Modeling Lab, University at Buffalo',
+        location: 'Buffalo, NY',
+        title: 'Data Science Intern',
+        period: 'Jan 2025 – Present',
+      },
+      {
+        company: 'Tata Consultancy Services',
+        location: 'Remote, India',
+        title: 'Data Scientist',
+        period: 'Oct 2022 – Jan 2024',
+      },
+      {
+        company: '3Pillar Global',
+        location: 'Noida, India',
+        title: 'Software Engineer',
+        period: 'Dec 2021 – Jul 2022',
+      },
+      {
+        company: 'ShapeAI',
+        location: 'Remote',
+        title: 'Data Analyst Intern',
+        period: 'Mar 2021 – May 2021',
+      },
+      {
+        company: 'Predictiveye',
+        location: 'Remote',
+        title: 'Machine Learning Intern',
+        period: 'Jul 2019 – Jul 2020',
+      },
+    ];
+
+    return (
+      <section id="experience" class="bg-white py-20">
+        <div class="mx-auto max-w-4xl px-6">
+          <h2 class="mono mb-12 text-center text-4xl font-bold">Experience</h2>
+          <div class="relative border-l-4 border-blue-500 pl-6 space-y-12">
+            {experiences.map((exp, index) => (
+              <div key={index} class="relative">
+                <div class="absolute -left-3 top-1.5 w-5 h-5 bg-blue-600 rounded-full border-4 border-white shadow" />
+                <div class="bg-blue-50 rounded-lg p-6 shadow-md">
+                  <h3 class="text-xl font-semibold text-blue-800">{exp.title}</h3>
+                  <p class="text-gray-700 font-medium">{exp.company} · {exp.location}</p>
+                  <p class="text-sm text-gray-500">{exp.period}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  };
+
 
     /**************** PROJECTS ****************/
     const Projects=()=>{
