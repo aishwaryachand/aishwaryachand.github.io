@@ -1,16 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Aishwarya Chand</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.15/babel.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .animated-gradient {
+      background: linear-gradient(-45deg, #ec4899, #06b6d4, #9333ea, #3b82f6);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up {
+      animation: fadeInUp 1s ease-out forwards;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 font-['Inter']">
+<body class="bg-gray-100">
   <div id="root"></div>
 
   <script type="text/babel">
@@ -18,17 +41,14 @@
       return (
         <nav class="bg-white shadow-md fixed w-full z-10">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-              <div class="flex items-center">
-                <span class="text-2xl font-bold text-gray-800">Aishwarya Chand</span>
-              </div>
+            <div class="flex justify-between h-16 items-center">
+              <span class="text-2xl font-bold text-gray-800">Aishwarya Chand</span>
               <div class="flex items-center space-x-4">
-                <a href="#home" class="text-gray-600 hover:text-blue-600">Home</a>
-                <a href="#experience" class="text-gray-600 hover:text-blue-600">Experience</a>
-                <a href="#projects" class="text-gray-600 hover:text-blue-600">Projects</a>
-                <a href="#blog" class="text-gray-600 hover:text-blue-600">Blog</a>
-                <a href="#contact" class="text-gray-600 hover:text-blue-600">Contact</a>
-                <a href="#skills" class="text-gray-600 hover:text-blue-600">Skills</a>
+                {["Home", "Experience", "Projects", "Blog", "Contact", "Skills"].map((section) => (
+                  <a href={`#${section.toLowerCase()}`} class="text-gray-600 hover:text-pink-600" key={section}>
+                    {section}
+                  </a>
+                ))}
               </div>
             </div>
           </div>
@@ -38,20 +58,31 @@
 
     function Hero() {
       return (
-        <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+        <section id="home" class="min-h-screen flex items-center justify-center text-white animated-gradient px-4">
           <div class="text-center">
             <img
               src="https://aishwaryachand.github.io/assets/1746597056907.jpeg"
               alt="Aishwarya Chand"
-              class="w-40 h-40 rounded-full mx-auto mb-6 shadow-lg"
+              class="w-52 h-52 md:w-60 md:h-60 rounded-full mx-auto mb-6 shadow-xl ring-4 ring-white ring-offset-4 ring-offset-pink-400 transition-transform duration-300 hover:scale-105"
             />
-
-
-            <h1 class="text-5xl font-bold mb-4">Hi, I'm Aishwarya Chand</h1>
-            <p class="text-xl mb-6">AI Engineer | Building Intelligent Systems</p>
-            <div class="flex justify-center space-x-4">
-              <a href="#projects" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-200">View My Work</a>
-              <a href="/resume.pdf" download class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600">Download Resume</a>
+            <h1 class="text-4xl md:text-5xl font-bold mb-3 fade-in-up">Hi, I'm Aishwarya Chand</h1>
+            <p class="text-lg md:text-xl mb-6 opacity-90 fade-in-up" style={{ animationDelay: '0.2s' }}>
+              AI Engineer • Product Thinker • Impact Maker
+            </p>
+            <div class="flex justify-center space-x-4 fade-in-up" style={{ animationDelay: '0.4s' }}>
+              <a
+                href="#projects"
+                class="bg-white text-pink-600 px-6 py-3 rounded-full font-semibold shadow hover:bg-pink-100 transition"
+              >
+                View My Work
+              </a>
+              <a
+                href="/resume.pdf"
+                download
+                class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-pink-600 transition"
+              >
+                Download Resume
+              </a>
             </div>
           </div>
         </section>
@@ -64,19 +95,19 @@
           title: "Senior AI Engineer",
           company: "Tech Corp",
           duration: "Jan 2022 - Present",
-          description: "Led development of machine learning models for predictive analytics, improving business outcomes by 20%.",
+          description: "Led development of ML models for predictive analytics, improving business outcomes by 20%.",
         },
         {
           title: "AI Researcher",
           company: "AI Innovations",
           duration: "Jun 2019 - Dec 2021",
-          description: "Researched and implemented NLP algorithms for sentiment analysis, deployed in production systems.",
+          description: "Implemented NLP algorithms for sentiment analysis used in production.",
         },
         {
-          title: "Machine Learning Intern",
+          title: "ML Intern",
           company: "Data Solutions",
           duration: "May 2018 - Aug 2018",
-          description: "Developed computer vision models for object detection, contributing to a real-time surveillance system.",
+          description: "Built object detection models for real-time surveillance.",
         },
       ];
 
@@ -102,17 +133,17 @@
       const projects = [
         {
           title: "AI-Powered Chatbot",
-          description: "Developed a conversational AI using NLP and deep learning to assist users in real-time.",
+          description: "Conversational AI using NLP + Deep Learning.",
           link: "#",
         },
         {
           title: "Image Recognition System",
-          description: "Built a computer vision model to classify images with high accuracy using CNNs.",
+          description: "Computer vision app using CNNs with high accuracy.",
           link: "#",
         },
         {
           title: "Predictive Analytics Dashboard",
-          description: "Created a cloud-based AI solution for forecasting trends with interactive visualizations.",
+          description: "Cloud-based forecasting with interactive visualizations.",
           link: "#",
         },
       ];
@@ -126,7 +157,7 @@
                 <div key={project.title} class="bg-white p-6 rounded-lg shadow-md">
                   <h3 class="text-xl font-semibold mb-2">{project.title}</h3>
                   <p class="text-gray-600 mb-4">{project.description}</p>
-                  <a href={project.link} class="text-blue-600 hover:underline">Learn More</a>
+                  <a href={project.link} class="text-pink-600 hover:underline">Learn More</a>
                 </div>
               ))}
             </div>
@@ -139,17 +170,17 @@
       const posts = [
         {
           title: "Building Scalable AI Models",
-          excerpt: "A deep dive into optimizing machine learning models for production environments.",
+          excerpt: "A deep dive into optimizing machine learning systems.",
           link: "#",
         },
         {
           title: "The Future of NLP",
-          excerpt: "Exploring advancements in natural language processing and their applications.",
+          excerpt: "Exploring the next wave of language technologies.",
           link: "#",
         },
         {
           title: "Ethics in AI Development",
-          excerpt: "Discussing the importance of responsible AI and bias mitigation strategies.",
+          excerpt: "Bias, fairness, and responsible AI practices.",
           link: "#",
         },
       ];
@@ -163,7 +194,7 @@
                 <div key={post.title} class="bg-gray-100 p-6 rounded-lg shadow-md">
                   <h3 class="text-xl font-semibold mb-2">{post.title}</h3>
                   <p class="text-gray-600 mb-4">{post.excerpt}</p>
-                  <a href={post.link} class="text-blue-600 hover:underline">Read More</a>
+                  <a href={post.link} class="text-pink-600 hover:underline">Read More</a>
                 </div>
               ))}
             </div>
@@ -177,14 +208,12 @@
         <section id="contact" class="py-20 bg-gray-100">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl font-bold text-center mb-12">Get in Touch</h2>
-            <div class="max-w-lg mx-auto">
-              <p class="text-gray-600 mb-6 text-center">
-                Interested in collaborating or have a question? Reach out to me!
-              </p>
+            <div class="max-w-lg mx-auto text-center">
+              <p class="text-gray-600 mb-6">Let’s build something amazing together. Reach out via:</p>
               <div class="flex justify-center space-x-6">
-                <a href="mailto:your.email@example.com" class="text-blue-600 hover:text-blue-800">Email</a>
-                <a href="https://linkedin.com/in/yourprofile" class="text-blue-600 hover:text-blue-800">LinkedIn</a>
-                <a href="https://github.com/yourusername" class="text-blue-600 hover:text-blue-800">GitHub</a>
+                <a href="mailto:your.email@example.com" class="text-pink-600 hover:text-pink-800">Email</a>
+                <a href="https://linkedin.com/in/yourprofile" class="text-pink-600 hover:text-pink-800">LinkedIn</a>
+                <a href="https://github.com/yourusername" class="text-pink-600 hover:text-pink-800">GitHub</a>
               </div>
             </div>
           </div>
@@ -209,7 +238,7 @@
         { name: "Docker", icon: "🐳" },
         { name: "Kubernetes", icon: "⚙️" },
         { name: "SQL", icon: "🗄️" },
-        { name: "Data Visualization", icon: "📈" },
+        { name: "Data Viz", icon: "📈" },
       ];
 
       return (
@@ -243,7 +272,7 @@
       );
     }
 
-    const root = ReactDOM.createRoot(document.getElementById('root'));
+    const root = ReactDOM.createRoot(document.getElementById("root"));
     root.render(<App />);
   </script>
 </body>
