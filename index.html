@@ -64,13 +64,24 @@
     const AboutMe=()=> (
       <section id="about" class="bg-white py-20">
         <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 md:grid-cols-2">
-          <div>
-            <h2 class="mono mb-6 inline-block border-b-4 border-blue-600 text-4xl font-bold">About Me</h2>
-            <p class="mb-6 text-lg leading-relaxed text-gray-700">I’m <span class="font-bold">Aishwarya Chand</span>, a passionate AI Engineer who thrives at the intersection of data, product, and impact.</p>
-            <p class="mb-6 text-lg leading-relaxed text-gray-700">Skilled in <strong>LLMs, computer vision,</strong> and <strong>data science</strong>, I deliver measurable results and love mentoring the next wave of builders.</p>
-            <a href="#contact" class="mt-4 inline-block rounded-full bg-blue-600 px-8 py-3 font-semibold text-white hover:bg-blue-700">Let’s Connect</a>
+        <div>
+          <h2 class="mono mb-6 inline-block border-b-4 border-blue-600 text-4xl font-bold">About Me</h2>
+          <p class="mb-6 text-lg leading-relaxed text-gray-700">
+            Hi, I’m <span class="font-bold">Aishwarya Chand</span> — part engineer, part product nerd, part caffeine-powered optimizer of all things inefficient.
+          </p>
+          <p class="mb-6 text-lg leading-relaxed text-gray-700">
+            By day, I fine-tune Transformers and architect AI pipelines that (hopefully) don’t hallucinate. By night, I’m usually debugging things that were “working 5 minutes ago.” From deploying production chatbots to building sign-language models, I craft ML systems that actually help humans — not just benchmarks.
+          </p>
+          <p class="mb-6 text-lg leading-relaxed text-gray-700">
+            I believe clean code is a love language, metrics matter but impact matters more, and no model is complete without a good story (and an ablation study).
+          </p>
+          <p class="mb-6 text-lg leading-relaxed text-gray-700">
+            When I’m not wrangling data or arguing with my models, you’ll find me mentoring juniors, writing long-overdue Medium blogs, or volunteering at nonprofits — usually near food, people, or both.
+          </p>
+           <a href="#contact" class="mt-4 inline-block rounded-full bg-blue-600 px-8 py-3 font-semibold text-white hover:bg-blue-700">Let’s Connect</a>
           </div>
-          <img src="https://aishwaryachand.github.io/assets/graduation_photo.jpeg" class="w-full rounded-xl shadow-lg" />
+
+          <img src="https://aishwaryachand.github.io/assets/aboutme.jpeg" class="w-full rounded-xl shadow-lg" />
         </div>
       </section>
     );
@@ -78,7 +89,7 @@
     /**************** EDUCATION ****************/
     const Education=()=>{
       const schools=[
-        {degree:'M.S. Computer Science (AI)',school:'University at Buffalo',period:'Jan 2024 – May 2025'},
+        {degree:'Masters Computer Science (specialization in AI)',school:'University at Buffalo',period:'Jan 2024 – May 2025'},
         {degree:'B.Tech Computer Science',school:'Jamia Hamdard University',period:'Jul 2018 – Jun 2022'},
       ];
       return (
@@ -202,7 +213,27 @@
 
     /**************** SKILLS ****************/
     const Skills = () => {
-      const skills = ['Python','PyTorch','TensorFlow','SQL','AWS','Transformers','Docker','Hugging Face','Tableau','A/B Testing'];
+   
+      const skills = [
+        // Programming Languages
+        'C', 'C++', 'Python', 'Java', 'MATLAB', 'C#', '.NET', 'ASP.NET',
+        
+        // ML & DL Frameworks
+        'PyTorch', 'TensorFlow', 'Transformers', 'Hugging Face', 'Scikit-learn', 'Keras',
+        
+        // Data Engineering & SDE Tools
+        'Pandas', 'NumPy', 'Spark', 'Hadoop', 'Kafka', 'Airflow', 'FastAPI', 'Flask', 'Node.js',
+        
+        // Cloud & DevOps
+        'AWS', 'Azure', 'GCP', 'Docker', 'Git', 'CI/CD', 'Linux',
+        
+        // Data Tools & Analytics
+        'SQL', 'PostgreSQL', 'MySQL', 'MongoDB', 'Tableau', 'Power BI', 'Excel', 'A/B Testing', 'Data Cleaning', 'Feature Engineering',
+        
+        // Other Tools
+        'Jira', 'Confluence', 'VS Code', 'Jupyter Notebooks'
+      ];
+    
       return (
         <section id="skills" class="bg-white py-20">
           <div class="mx-auto max-w-6xl px-6">
@@ -218,6 +249,7 @@
         </section>
       );
     };
+
 
     /**************** CONTACT ****************/
     const Contact = () => (
