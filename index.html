@@ -8,31 +8,31 @@
   <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.15/babel.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-    /* Dynamic animated gradient reflecting green foliage + magenta dress tones */
+    body { font-family: 'Inter', sans-serif; }
+    /* Dynamic animated gradient */
     .hero-bg {
-      background: linear-gradient(130deg, #0d9488 0%, #0284c7 30%, #7e22ce 60%, #d946ef 100%);
-      background-size: 500% 500%;
+      background: linear-gradient(130deg,#0d9488 0%,#0284c7 30%,#7e22ce 60%,#d946ef 100%);
+      background-size:500% 500%;
       animation: gradientShift 18s ease-in-out infinite;
     }
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    @keyframes gradientShift {0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+    /* floating profile img */
+    @keyframes float {0%{transform:translateY(0);}50%{transform:translateY(-10px);}100%{transform:translateY(0);}}
+    .float-img{animation:float 6s ease-in-out infinite;}
+    /* MATRIX overlay */
+    .hero-bg::after{
+      content:"";position:absolute;inset:0;pointer-events:none;
+      background-image:repeating-linear-gradient(180deg,rgba(255,255,255,.03) 0 2px,transparent 2px 4px),repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 2px,transparent 2px 4px);
+      animation:bgScroll 60s linear infinite;
     }
-    /* Subtle floating animation for profile image */
-    @keyframes float {
-      0%   { transform: translateY(0); }
-      50%  { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
-    }
-    .float-img {
-      animation: float 6s ease-in-out infinite;
-    }
+    @keyframes bgScroll{0%{background-position:0 0,0 0;}100%{background-position:0 200px,200px 0;}}
+    /* Monospace accents for headings */
+    .mono{font-family:'Fira Code',monospace;letter-spacing:-0.03em;}
+    /* Terminal‑style card */
+    .code-card{position:relative;border:1px solid #1e293b;background:#0f172a;color:#e2e8f0;}
+    .code-card::before{content:'●';position:absolute;top:10px;left:12px;font-size:.6rem;color:#16a34a;}
   </style>
 </head>
 <body class="bg-white text-gray-900">
@@ -40,307 +40,23 @@
 
   <script type="text/babel">
     /********** NAVBAR **********/
-    const sections = ['Home','About','Education','Experience','Projects','Blog','Skills','Contact'];
-    function Navbar() {
-      return (
-        <nav class="fixed inset-x-0 top-0 z-20 bg-white/80 backdrop-blur shadow-sm">
-          <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
-            <span class="text-xl font-extrabold text-gray-800">Aishwarya Chand</span>
-            <div class="hidden space-x-6 md:flex">
-              {sections.map(s => (
-                <a key={s} href={`#${s.toLowerCase()}`} class="text-gray-600 hover:text-blue-600 text-sm font-medium">{s}</a>
-              ))}
-            </div>
-          </div>
-        </nav>
-      );
-    }
+    const sections=['Home','About','Education','Experience','Projects','Blog','Skills','Contact'];
+    function Navbar(){return(<nav class="fixed inset-x-0 top-0 z-20 bg-white/80 backdrop-blur shadow-sm"><div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3"><span class="mono text-xl font-bold">Aishwarya Chand</span><div class="hidden space-x-6 md:flex">{sections.map(s=>(<a key={s} href={`#${s.toLowerCase()}`} class="mono text-sm text-gray-600 hover:text-blue-600">{s}</a>))}</div></div></nav>);}  
 
     /********** HERO **********/
-    function Hero() {
-      return (
-        <section id="home" class="hero-bg flex min-h-screen flex-col items-center justify-center px-4 pt-20 text-center text-white">
-          <img
-            src="https://aishwaryachand.github.io/assets/1746597056907.jpeg"
-            alt="Aishwarya Chand"
-            class="float-img mb-6 h-60 w-60 rounded-full border-4 border-white shadow-xl" />
-          <h1 class="mb-4 text-4xl font-extrabold md:text-6xl">Hi, I'm Aishwarya Chand</h1>
-          <p class="mb-8 text-lg font-light md:text-2xl">AI Engineer · Product Thinker · Impact Maker</p>
-          <div class="flex flex-wrap justify-center gap-4">
-            <a href="#projects" class="rounded-full bg-white px-8 py-3 font-semibold text-blue-600 shadow hover:bg-blue-50">View My Work</a>
-            <a href="/resume.pdf" download class="rounded-full border-2 border-white px-8 py-3 font-semibold hover:bg-white hover:text-blue-600">Download Resume</a>
-          </div>
-        </section>
-      );
-    }
+    function Hero(){return(<section id="home" class="hero-bg relative flex min-h-screen flex-col items-center justify-center px-4 pt-20 text-center text-white"><img src="https://aishwaryachand.github.io/assets/p.jpeg" alt="Aishwarya Chand" class="float-img mb-6 h-60 w-60 rounded-full border-4 border-white shadow-xl"/><h1 class="mono mb-4 text-4xl font-extrabold md:text-6xl">Hi, I'm Aishwarya Chand</h1><p class="mb-8 text-lg font-light md:text-2xl">AI Engineer · Product Thinker · Impact Maker</p><div class="flex flex-wrap justify-center gap-4"><a href="#projects" class="rounded-full bg-white px-8 py-3 font-semibold text-blue-600 shadow hover:bg-blue-50">View My Work</a><a href="/resume.pdf" download class="rounded-full border-2 border-white px-8 py-3 font-semibold hover:bg-white hover:text-blue-600">Download Resume</a></div></section>);}  
 
-    /** ABOUT **/
-    function AboutMe() {
-      return (
-        <section id="about" class="bg-white py-20">
-          <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 md:grid-cols-2">
-            <div>
-              <h2 class="mb-6 inline-block border-b-4 border-blue-600 text-4xl font-bold">About Me</h2>
-              <p class="mb-6 text-lg leading-relaxed text-gray-700">
-                I’m <span class="font-bold">Aishwarya Chand</span>, a passionate AI Engineer who thrives at the
-                intersection of data, product, and impact. I love transforming complex ideas into intelligent,
-                human‑centered systems that drive measurable value.
-              </p>
-              <p class="mb-6 text-lg leading-relaxed text-gray-700">
-                My expertise spans <strong>LLMs, computer vision,</strong> and <strong>data science</strong>, backed by
-                experience shipping production‑grade solutions at companies like <strong>TCS</strong> and research labs
-                at <strong>University at Buffalo</strong>.
-              </p>
-              <a
-                href="#contact"
-                class="mt-4 inline-block rounded-full bg-blue-600 px-8 py-3 font-semibold text-white hover:bg-blue-700"
-              >
-                Let’s Connect
-              </a>
-            </div>
-            <img
-              src="https://aishwaryachand.github.io/assets/graduation_photo.jpeg"
-              alt="Graduation"
-              class="w-full rounded-xl shadow-lg"
-            />
-          </div>
-        </section>
-      );
-    }
+    /********** ABOUT **********/
+    function AboutMe(){return(<section id="about" class="bg-white py-20"><div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 md:grid-cols-2"><div><h2 class="mono mb-6 inline-block border-b-4 border-blue-600 text-4xl font-bold">About Me</h2><p class="mb-6 text-lg leading-relaxed text-gray-700">I’m <span class="font-bold">Aishwarya Chand</span>, a passionate AI Engineer who thrives at the intersection of data, product, and impact.</p><p class="mb-6 text-lg leading-relaxed text-gray-700">My expertise spans <strong>LLMs, computer vision,</strong> and <strong>data science</strong>, backed by experience shipping production‑grade solutions at <strong>TCS</strong> and labs at <strong>University at Buffalo</strong>.</p><a href="#contact" class="mt-4 inline-block rounded-full bg-blue-600 px-8 py-3 font-semibold text-white hover:bg-blue-700">Let’s Connect</a></div><img src="https://aishwaryachand.github.io/assets/graduation_photo.jpeg" class="w-full rounded-xl shadow-lg"/></div></section>);}  
 
-    /** EDUCATION **/
-    function Education() {
-      const schools = [
-        {
-          degree: 'M.S. Computer Science (AI)',
-          school: 'University at Buffalo',
-          period: 'Jan 2024 – May 2025',
-        },
-        {
-          degree: 'B.Tech Computer Science',
-          school: 'Jamia Hamdard University',
-          period: 'Jul 2018 – Jun 2022',
-        },
-      ];
-      return (
-        <section id="education" class="py-20 bg-gray-50">
-          <div class="mx-auto max-w-6xl px-6">
-            <h2 class="mb-12 text-center text-4xl font-bold">Education</h2>
-            <div class="space-y-8">
-              {schools.map((s) => (
-                <div key={s.degree} class="rounded-lg bg-white p-6 shadow">
-                  <h3 class="text-xl font-semibold text-blue-700">{s.degree}</h3>
-                  <p class="text-gray-600">{s.school}</p>
-                  <p class="text-gray-400 text-sm">{s.period}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      );
-    }
+    /********** EDUCATION **********/
+    function Education(){const schools=[{degree:'M.S. Computer Science (AI)',school:'University at Buffalo',period:'Jan 2024 – May 2025'},{degree:'B.Tech Computer Science',school:'Jamia Hamdard University',period:'Jul 2018 – Jun 2022'}];return(<section id="education" class="bg-gray-50 py-20"><div class="mx-auto max-w-6xl px-6"><h2 class="mono mb-12 text-center text-4xl font-bold">Education</h2><div class="space-y-8">{schools.map(s=>(<div key={s.degree} class="code-card p-6"><h3 class="text-xl font-semibold text-blue-400">{s.degree}</h3><p>{s.school}</p><p class="text-sm text-gray-400">{s.period}</p></div>))}</div></div></section>);}  
 
-    /** EXPERIENCE **/
-    function Experience() {
-      const jobs = [
-        {
-          title: 'Data Science Intern',
-          company: 'Human Behavior Modeling Lab, University at Buffalo',
-          period: 'Jan 2025 – Present',
-          bullets: [
-            'Fine‑tuned Differential Transformers for ASL → text, boosting BLEU by +5.5.',
-            'Scaled data pipelines to 5M+ video frames, improving robustness.',
-            'Deployed F1‑0.88 classifier, reducing gloss‑level error by 21%.',
-          ],
-        },
-        {
-          title: 'Data Scientist',
-          company: 'Tata Consultancy Services',
-          period: 'Oct 2022 – Jan 2024',
-          bullets: [
-            'Deployed triage chatbot (AWS Lex, Lambda), cutting wait time 45%.',
-            'Led LSTM retention model → +12% re‑engagement.',
-            'Built KPI dashboards in Tableau for product analytics.',
-          ],
-        },
-        {
-          title: 'Software Engineer',
-          company: '3Pillar Global',
-          period: 'Dec 2021 – Jul 2022',
-          bullets: ['Optimized SQL & indexing → 35% lower latency in analytics APIs.'],
-        },
-      ];
-      return (
-        <section id="experience" class="bg-white py-20">
-          <div class="mx-auto max-w-6xl px-6">
-            <h2 class="mb-12 text-center text-4xl font-bold">Experience</h2>
-            <div class="space-y-10">
-              {jobs.map((job) => (
-                <div key={job.title} class="rounded-lg border-l-4 border-blue-600 bg-gray-50 p-6 shadow">
-                  <h3 class="text-xl font-semibold text-gray-800">
-                    {job.title} · <span class="text-blue-700">{job.company}</span>
-                  </h3>
-                  <p class="text-sm text-gray-500 mb-4">{job.period}</p>
-                  <ul class="ml-4 list-disc space-y-2 text-gray-700">
-                    {job.bullets.map((b, i) => (
-                      <li key={i}>{b}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      );
-    }
+    /********** EXPERIENCE **********/
+    function Experience(){const jobs=[{title:'Data Science Intern',company:'Human Behavior Modeling Lab, University at Buffalo',period:'Jan 2025 – Present',bullets:['Fine‑tuned Differential Transformers for ASL → text, boosting BLEU by +5.5.','Scaled data pipelines to 5M+ video frames, improving robustness.','Deployed F1‑0.88 classifier, reducing gloss‑level error by 21%.']},{title:'Data Scientist',company:'Tata Consultancy Services',period:'Oct 2022 – Jan 2024',bullets:['Deployed triage chatbot (AWS Lex, Lambda), cutting wait time 45%.','Led LSTM retention model → +12% re‑engagement.','Built KPI dashboards in Tableau for product analytics.']},{title:'Software Engineer',company:'3Pillar Global',period:'Dec 2021 – Jul 2022',bullets:['Optimized SQL & indexing → 35% lower latency in analytics APIs.']}];return(<section id="experience" class="bg-white py-20"><div class="mx-auto max-w-6xl px-6"><h2 class="mono mb-12 text-center text-4xl font-bold">Experience</h2><div class="space-y-10">{jobs.map(j=>(<div key={j.title} class="code-card pl-8 pr-6 py-6"><h3 class="text-xl font-semibold text-blue-400">{j.title} · {j.company}</h3><p class="mb-4 text-sm text-gray-400">{j.period}</p><ul class="ml-4 list-disc space-y-2 text-gray-300">{j.bullets.map((b,i)=>(<li key={i}>{b}</li>))}</ul></div>))}</div></div></section>);}  
 
-    /** PROJECTS **/
-    function Projects() {
-      const projects = [
-        {
-          title: 'InsightMate – LLM‑powered Feedback Analyzer',
-          desc: 'Secure local analysis over 100K+ reviews with RAG & LLaMA‑2; 91% labeling accuracy.',
-          link: 'https://github.com/aishwaryachand/InsightMate',
-        },
-        {
-          title: 'MindBridge – Mental‑Health Chatbot',
-          desc: 'Multilingual chatbot leveraging GraphRAG + Qwen2, FastAPI backend.',
-          link: 'https://github.com/aishwaryachand/MindBridge',
-        },
-        {
-          title: 'Customer Churn Prediction & Explainability',
-          desc: 'Random Forest ensemble (ROC‑AUC 0.90) + SHAP insights on Telco dataset.',
-          link: '#',
-        },
-      ];
-      return (
-        <section id="projects" class="bg-gray-50 py-20">
-          <div class="mx-auto max-w-7xl px-6">
-            <h2 class="mb-12 text-center text-4xl font-bold">Projects</h2>
-            <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {projects.map((p) => (
-                <div key={p.title} class="rounded-xl bg-white p-6 shadow hover:shadow-lg transition">
-                  <h3 class="text-xl font-semibold text-blue-700 mb-2">{p.title}</h3>
-                  <p class="text-gray-700 mb-4 text-sm">{p.desc}</p>
-                  <a href={p.link} target="_blank" class="font-semibold text-blue-600 hover:underline">
-                    View Repo →
-                  </a>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      );
-    }
+    /********** PROJECTS **********/
+    function Projects(){const projects=[{title:'InsightMate – LLM‑powered Feedback Analyzer',desc:'Secure local analysis over 100K+ reviews with RAG & LLaMA‑2; 91% labeling accuracy.',link:'https://github.com/aishwaryachand/InsightMate'},{title:'MindBridge – Mental‑Health Chatbot',desc:'Multilingual chatbot leveraging GraphRAG + Qwen2, FastAPI backend.',link:'https://github.com/aishwaryachand/MindBridge'},{title:'Customer Churn Prediction & Explainability',desc:'Random Forest ensemble (ROC‑AUC 0.90) + SHAP insights on Telco dataset.',link:'#'}];return(<section id="projects" class="bg-gray-50 py-20"><div class="mx-auto max-w-7xl px-6"><h2 class="mono mb-12 text-center text-4xl font-bold">Projects</h2><div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">{projects.map(p=>(<div key={p.title} class="code-card p-6 hover:shadow-lg transition"><h3 class="mb-2 text-xl font-semibold text-blue-400">{p.title}</h3><p class="mb-4 text-sm text-gray-300">{p.desc}</p><a href={p.link} target="_blank" class="font-semibold text-blue-300 hover:underline">View Repo →</a></div>))}</div></div></section>);}  
 
-    /** BLOG (already defined) **/
-    function Blog() {
-      const posts = [
-        {
-          title: 'Difference Between fit(), transform(), and fit_transform() in scikit-learn',
-          excerpt: 'Understanding preprocessing essentials in scikit‑learn.',
-          link: 'https://aishwarya-chand.medium.com/difference-fit-transform-and-fit-transform-method-in-scikit-learn-b0a4efcab804',
-        },
-        {
-          title: 'Building LLMs from Scratch – Part 1: Concepts & Architecture',
-          excerpt: 'A hands‑on guide to LLM internals and transformer architecture.',
-          link: 'https://aishwarya-chand.medium.com/building-llms-from-scratch-part-1-concepts-architecture-and-foundations-55db4bccfb3f',
-        },
-        {
-          title: 'Navigating Grad Life at University at Buffalo',
-          excerpt: 'Personal insights & hacks for thriving as an international grad.',
-          link: 'https://aishwarya-chand.medium.com/navigating-grad-life-at-university-at-buffalo-my-personal-experience-1f827f25c5d0',
-        },
-      ];
-      return (
-        <section id="blog" class="bg-gradient-to-br from-purple-100 to-pink-50 py-20">
-          <div class="mx-auto max-w-7xl px-6">
-            <h2 class="mb-12 text-center text-4xl font-bold text-gray-900">Featured Blogs</h2>
-            <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {posts.map((post) => (
-                <div key={post.title} class="rounded-xl bg-white p-6 shadow hover:shadow-lg transition">
-                  <h3 class="mb-2 text-lg font-semibold text-gray-800">{post.title}</h3>
-                  <p class="mb-4 text-sm text-gray-600">{post.excerpt}</p>
-                  <a href={post.link} target="_blank" class="font-semibold text-blue-600 hover:underline">
-                    Read More →
-                  </a>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      );
-    }
-
-    /** SKILLS **/
-    function Skills() {
-      const skills = [
-        'Python',
-        'PyTorch',
-        'TensorFlow',
-        'SQL',
-        'AWS',
-        'Transformers',
-        'Hugging Face',
-        'Docker',
-        'A/B Testing',
-        'Tableau',
-      ];
-      return (
-        <section id="skills" class="bg-white py-20">
-          <div class="mx-auto max-w-6xl px-6">
-            <h2 class="mb-12 text-center text-4xl font-bold">Skills</h2>
-            <div class="flex flex-wrap justify-center gap-4">
-              {skills.map((s) => (
-                <span key={s} class="rounded-lg bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700 shadow">
-                  {s}
-                </span>
-              ))}
-            </div>
-          </div>
-        </section>
-      );
-    }
-
-    /** CONTACT **/
-    function Contact() {
-      return (
-        <section id="contact" class="bg-gray-50 py-20">
-          <div class="mx-auto max-w-xl px-6 text-center">
-            <h2 class="mb-6 text-4xl font-bold">Get in Touch</h2>
-            <p class="mb-8 text-gray-700">
-              Want to collaborate or have a question? Reach out and I’ll respond as soon as possible!
-            </p>
-            <div class="flex justify-center space-x-6 text-xl">
-              <a href="mailto:aishwarya7811@gmail.com" class="text-blue-600 hover:text-blue-800">Email</a>
-              <a href="https://linkedin.com/in/aishwarya-chand" class="text-blue-600 hover:text-blue-800">LinkedIn</a>
-              <a href="https://github.com/aishwaryachand" class="text-blue-600 hover:text-blue-800">GitHub</a>
-              <a href="https://aishwarya-chand.medium.com" class="text-blue-600 hover:text-blue-800">Medium</a>
-            </div>
-          </div>
-        </section>
-      );
-    }
-
-    /****************** APP *******************/
-    function App() {
-      return (
-        <div>
-          <Navbar />
-          <Hero />
-          <AboutMe />
-          <Education />
-          <Experience />
-          <Projects />
-          <Blog />
-          <Skills />
-          <Contact />
-        </div>
-      );
-    }
-
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
-  </script>
-</body>
-</html>
+    /********** BLOG **********/
+    function Blog(){const posts=[{title:'Difference Between fit(), transform(), and fit_transform() in scikit-learn',excerpt:'Understanding preprocessing essentials in scikit‑learn.',link:'https://aishwarya-chand.medium.com/difference-fit-transform-and-fit-transform-method-in-scikit-learn-b0a4efcab804'},{title:'Building LLMs from Scratch – Part 1: Concepts & Architecture',excerpt:'A hands‑on guide to LLM internals and transformer architecture.',link:'https://aishwarya-chand.medium.com/building-llms-from-scratch-part-1-concepts-architecture-and-foundations-55db4bccfb3f'},{title:'Navigating Grad Life at University at Buffalo',excerpt:'Personal insights & hacks for thriving as an international grad.',link:'https://aishwarya-chand.medium.com/navigating-grad-life-at-university-at-buffalo-my-personal-experience-1f827f25
