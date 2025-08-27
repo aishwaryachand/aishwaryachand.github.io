@@ -113,9 +113,11 @@
                  className="h-full w-full rounded-full object-cover border-4 border-white/90 shadow-xl float"/>
           </div>
           <h1 className="font-display text-4xl md:text-6xl font-bold tracking-tight">Hi, I'm Aishwarya Chand</h1>
+        
           <p className="mt-4 text-lg md:text-2xl text-white/85">
-            AI Engineer · Software Developer · Shipping AI with Purpose
-          </p>
+  Backend Software Engineer · LLM / GenAI Engineer · Building reliable APIs & ML systems
+         </p>
+
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <a href="#projects"
                className="rounded-full bg-white text-brand-700 px-6 py-3 font-semibold shadow hover:bg-brand-50">
@@ -141,28 +143,48 @@
     );
 
     /*** ABOUT ***/
-    const About = () => (
-      <Section id="about" title="About Me">
-        <div className="grid gap-10 md:grid-cols-2 items-center">
-          <div>
-            <p className="text-lg leading-relaxed text-gray-700">
-              Hi, I’m <span className="font-semibold">Aishwarya Chand</span> — I design and ship ML systems that
-              create real user impact. From production chatbots to sign-language models, I care about reliability,
-              latency, and measurable outcomes.
-            </p>
-            <p className="mt-4 text-lg leading-relaxed text-gray-700">
-              Clean code, clear metrics, and thoughtful product choices. When I’m not iterating on models, I write,
-              cook, or explore new places.
-            </p>
-            <a href="#contact" className="mt-6 inline-block rounded-full bg-brand-600 px-6 py-2 text-white font-medium hover:bg-brand-700">
-              Let’s Connect
-            </a>
-          </div>
-          <img src="https://aishwaryachand.github.io/assets/aboutme.jpeg" alt="About"
-               className="w-full rounded-2xl shadow"/>
+const About = () => (
+  <section id="about" className="bg-white py-20">
+    <div className="mx-auto max-w-6xl px-6">
+      <h2 className="font-display text-4xl font-bold text-center">About Me</h2>
+
+      <div className="mt-10 grid gap-10 md:grid-cols-3">
+        {/* Narrative */}
+        <div className="md:col-span-2">
+          <p className="text-lg leading-relaxed text-gray-800">
+            I’m <span className="font-semibold">Aishwarya Chand</span>—a backend-focused SWE who builds
+            <strong> production-ready services</strong> and <strong>LLM/GenAI pipelines</strong>. I care about
+            correctness, latency, and clean interfaces. My recent work spans FastAPI microservices,
+            containerized deployments, vector search, retrieval evaluation, and secure API design.
+          </p>
+          <p className="mt-4 text-lg leading-relaxed text-gray-800">
+            I’m actively targeting roles at the intersection of <strong>Backend SWE</strong> and
+            <strong> LLM/GenAI</strong>, with strong interest in <strong>MLE</strong> responsibilities
+            (data/feature pipelines, evals, and model serving). When I’m not shipping, I write, learn, and
+            iterate on system design.
+          </p>
+
+          <a href="#contact"
+             className="mt-6 inline-block rounded-full bg-brand-600 px-6 py-2 text-white font-medium hover:bg-brand-700">
+            Let’s Connect
+          </a>
         </div>
-      </Section>
-    );
+
+        {/* Quick facts – replaces the photo */}
+        <div className="rounded-2xl border bg-gray-50 p-6">
+          <h3 className="text-base font-semibold text-gray-900">Quick Facts</h3>
+          <ul className="mt-3 space-y-2 text-sm text-gray-700">
+            <li>• Backend: FastAPI, Python, PostgreSQL, Redis, Docker</li>
+            <li>• Data/Infra: Kafka, Airflow, Spark, AWS/Azure</li>
+            <li>• GenAI: RAG, embeddings (FAISS), eval pipelines, prompt ops</li>
+            <li>• Focus: reliable APIs, clean contracts, measurable outcomes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
 
     /*** EDUCATION ***/
     const Education = () => {
@@ -216,39 +238,62 @@
     };
 
     /*** PROJECTS ***/
-    const Projects = () => {
-      const projects = [
-        { title:'InsightMate – LLM-powered Feedback Analyzer',
-          desc:'Secure local analysis over 100K+ reviews with RAG & LLaMA-2; 91% labeling accuracy.',
-          link:'https://github.com/aishwaryachand/InsightMate'
-        },
-        { title:'MindBridge – Mental-Health Chatbot',
-          desc:'Multilingual chatbot leveraging GraphRAG + Qwen2, FastAPI backend.',
-          link:'https://github.com/aishwaryachand/MindBridge'
-        },
-        { title:'Customer Churn Prediction & Explainability',
-          desc:'Random-Forest ensemble (ROC-AUC 0.90) + SHAP insights on Telco data.',
-          link:'#'
-        },
-      ];
-      return (
-        <Section id="projects" title="Projects" muted>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {projects.map(p => (
-              <a key={p.title} href={p.link} target="_blank"
-                 className="group rounded-2xl border p-6 bg-white shadow-sm hover:shadow-md transition">
-                <div className="flex items-start justify-between">
-                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-brand-700">{p.title}</h3>
-                  <span className="text-xs rounded-full px-2 py-0.5 bg-gray-100 text-gray-600">Case Study</span>
-                </div>
-                <p className="mt-2 text-sm text-gray-600">{p.desc}</p>
-                <span className="mt-4 inline-block text-brand-700 font-medium">View Repo →</span>
-              </a>
-            ))}
-          </div>
-        </Section>
-      );
-    };
+const Projects = () => {
+  const projects = [
+    {
+      title: "Real-Time Inventory Alert System",
+      desc: "Event-driven backend (FastAPI, PostgreSQL, Docker, JWT). Webhooks + background workers; idempotent updates; prod-style logging.",
+      link: "#"
+    },
+    {
+      title: "Dynamic Pricing Engine",
+      desc: "Rule + ML-assisted pricing service with feature flags, FastAPI APIs, and audit trails; batch/offline sims + A/B hooks.",
+      link: "#"
+    },
+    {
+      title: "Feature Flag Management API",
+      desc: "Multi-env flags (FastAPI, PostgreSQL, Alembic, Docker). SDK-friendly REST; RBAC; migrations; zero-downtime rollout.",
+      link: "#"
+    },
+    {
+      title: "Embedding Service for Personalized Search",
+      desc: "PyTorch + FAISS vector service with Redis caching; batched inference; retrieval metrics dashboard.",
+      link: "#"
+    },
+    {
+      title: "LLM-Powered User Summary Engine",
+      desc: "RAG-style summarizer endpoints with prompt templates, eval harness, and safety filters; async queues for throughput.",
+      link: "#"
+    },
+    {
+      title: "Event-Driven E-Commerce Order Processing",
+      desc: "Java + Spring Boot + Kafka microservices; saga/compensation basics; retry/DLQ; observability in logs/metrics.",
+      link: "#"
+    },
+  ];
+
+  return (
+    <section id="projects" className="bg-gray-50 py-20">
+      <div className="mx-auto max-w-7xl px-6">
+        <h2 className="font-display text-4xl font-bold text-center">Projects</h2>
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {projects.map(p => (
+            <a key={p.title} href={p.link} target="_blank"
+               className="group rounded-2xl border bg-white p-6 shadow-sm hover:shadow-md transition">
+              <div className="flex items-start justify-between">
+                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-brand-700">{p.title}</h3>
+                <span className="text-xs rounded-full px-2 py-0.5 bg-gray-100 text-gray-600">Backend</span>
+              </div>
+              <p className="mt-2 text-sm text-gray-600">{p.desc}</p>
+              <span className="mt-4 inline-block text-brand-700 font-medium">View Repo →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 
     /*** BLOG ***/
     const Blog = () => {
