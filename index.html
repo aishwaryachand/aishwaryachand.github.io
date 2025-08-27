@@ -1,347 +1,372 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Aishwarya Chand – Portfolio</title>
-  <!-- Tailwind & React -->
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet"/>
+
+  <!-- Tailwind (CDN) -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Inter", "system-ui", "sans-serif"],
+            display: ["Space Grotesk", "Inter", "system-ui", "sans-serif"],
+            mono: ["Fira Code", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"]
+          },
+          colors: {
+            brand: {
+              50:  "#f5f3ff",
+              100: "#ede9fe",
+              200: "#ddd6fe",
+              300: "#c4b5fd",
+              400: "#a78bfa",
+              500: "#8b5cf6",
+              600: "#7c3aed",
+              700: "#6d28d9",
+              800: "#5b21b6",
+              900: "#4c1d95",
+            }
+          },
+          boxShadow: {
+            glass: "0 8px 30px rgba(0,0,0,.08)",
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- React (CDN) -->
   <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.15/babel.min.js"></script>
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet" />
+
   <style>
-    body { font-family: 'Inter', sans-serif; }
-    /* animated gradient */
-    .hero-bg { background:linear-gradient(130deg,#0d9488 0%,#0284c7 30%,#7e22ce 60%,#d946ef 100%); background-size:500% 500%; animation:gradientShift 18s ease-in-out infinite; }
-    @keyframes gradientShift { 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
-    /* floating avatar */
-    @keyframes float { 0%{transform:translateY(0);} 50%{transform:translateY(-10px);} 100%{transform:translateY(0);} }
-    .float-img { animation: float 6s ease-in-out infinite; }
-    /* matrix overlay */
-    .hero-bg::after { content:""; position:absolute; inset:0; pointer-events:none; background-image:repeating-linear-gradient(180deg,rgba(255,255,255,.03) 0 2px,transparent 2px 4px),repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 2px,transparent 2px 4px); animation:bgScroll 60s linear infinite; }
-    @keyframes bgScroll { 0%{background-position:0 0,0 0;} 100%{background-position:0 200px,200px 0;} }
-    /* monospace accents */
-    .mono{ font-family:'Fira Code', monospace; letter-spacing:-0.03em; }
-    /* terminal style card */
-    .code-card{ position:relative; border:1px solid #1e293b; background:#0f172a; color:#e2e8f0; }
-    .code-card::before{ content:'●'; position:absolute; top:10px; left:12px; font-size:.6rem; color:#16a34a; }
+    html { scroll-behavior: smooth; }
+    /* Hero gradient + grain */
+    .hero-bg {
+      background: radial-gradient(80% 60% at 50% 20%, #a78bfa 0%, #7c3aed 35%, #111827 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg::after{
+      content:"";
+      position:absolute; inset:0; pointer-events:none;
+      background-image:
+        repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 2px, transparent 2px 4px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 2px, transparent 2px 4px);
+      opacity:.25;
+    }
+    /* Floating avatar */
+    @keyframes float { 0%{transform:translateY(0)} 50%{transform:translateY(-8px)} 100%{transform:translateY(0)} }
+    .float { animation: float 6s ease-in-out infinite; }
+    /* Active nav underline */
+    .nav-active { color: #111827 !important; }
+    .nav-active::after {
+      content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px; background:#7c3aed; border-radius:9999px;
+    }
   </style>
 </head>
 <body class="bg-white text-gray-900">
   <div id="root"></div>
 
   <script type="text/babel">
-    /**************** NAVBAR ****************/
-    const sections=['Home','About','Education','Experience','Projects','Blog','Skills','Contact'];
-    const NavLink=({s})=>(<a href={`#${s.toLowerCase()}`} class="mono text-sm text-gray-600 hover:text-blue-600">{s}</a>);
-    const Navbar=()=> (
-      <nav class="fixed inset-x-0 top-0 z-20 bg-white/80 backdrop-blur shadow-sm">
-        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
-          <span class="mono text-xl font-bold">Aishwarya Chand</span>
-          <div class="hidden space-x-6 md:flex">
-            {sections.map((s)=> <NavLink key={s} s={s}/> )}
+    /*** DATA ***/
+    const links = [
+      "Home","About","Education","Experience","Projects","Blog","Skills","Contact"
+    ];
+
+    /*** NAVBAR ***/
+    const NavLink = ({label}) => (
+      <a href={`#${label.toLowerCase()}`}
+         className="relative text-sm text-gray-600 hover:text-gray-900 transition">
+        {label}
+      </a>
+    );
+
+    const Navbar = () => (
+      <nav className="fixed inset-x-0 top-0 z-30 bg-white/70 backdrop-blur border-b shadow-glass">
+        <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
+          <span className="font-display text-xl font-semibold tracking-tight">{'<'} Aishwarya {'/>'}</span>
+          <div className="hidden md:flex items-center gap-6">
+            {links.map(l => <NavLink key={l} label={l}/>)}
           </div>
+          <a href="#contact" className="hidden md:inline-flex rounded-full bg-brand-600 px-4 py-2 text-white text-sm hover:bg-brand-700">
+            Contact
+          </a>
         </div>
       </nav>
     );
 
-    /**************** HERO ****************/
-    const Hero=()=> (
-      <section id="home" class="hero-bg relative flex min-h-screen flex-col items-center justify-center px-4 pt-20 text-center text-white">
-        <img src="https://aishwaryachand.github.io/assets/p.jpeg" alt="Aishwarya Chand" class="float-img mb-6 h-60 w-60 rounded-full border-4 border-white shadow-xl" />
-        <h1 class="mono mb-4 text-4xl font-extrabold md:text-6xl">Hi, I'm Aishwarya Chand</h1>
-        <p class="mb-8 text-lg font-light md:text-2xl">AI Engineer · Software Developer · Shipping AI with Purpose</p>
-        <div class="flex flex-wrap justify-center gap-4">
-          <a href="#projects" class="rounded-full bg-white px-8 py-3 font-semibold text-blue-600 shadow hover:bg-blue-50">View My Work</a>
-          <a href="https://aishwaryachand.github.io/assets/Aishwarya_Chand_Resume.pdf" download class="rounded-full border-2 border-white px-8 py-3 font-semibold hover:bg-white hover:text-blue-600">Download Resume</a>
+    /*** HERO ***/
+    const Hero = () => (
+      <section id="home" className="hero-bg pt-28 pb-24 md:pt-36 md:pb-32 text-white">
+        <div className="mx-auto max-w-5xl px-6 text-center">
+          <div className="mx-auto mb-8 h-40 w-40 rounded-full p-[3px] bg-gradient-to-tr from-white/80 via-brand-400 to-brand-700">
+            <img src="https://aishwaryachand.github.io/assets/p.jpeg"
+                 alt="Aishwarya Chand"
+                 className="h-full w-full rounded-full object-cover border-4 border-white/90 shadow-xl float"/>
+          </div>
+          <h1 className="font-display text-4xl md:text-6xl font-bold tracking-tight">Hi, I'm Aishwarya Chand</h1>
+          <p className="mt-4 text-lg md:text-2xl text-white/85">
+            AI Engineer · Software Developer · Shipping AI with Purpose
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <a href="#projects"
+               className="rounded-full bg-white text-brand-700 px-6 py-3 font-semibold shadow hover:bg-brand-50">
+               View My Work
+            </a>
+            <a href="https://aishwaryachand.github.io/assets/Aishwarya_Chand_Resume.pdf" download
+               className="rounded-full border border-white/80 px-6 py-3 font-semibold text-white hover:bg-white hover:text-brand-700">
+               Download Resume
+            </a>
+          </div>
         </div>
       </section>
     );
 
-    /**************** ABOUT ****************/
-    const AboutMe=()=> (
-      <section id="about" class="bg-white py-20">
-        <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-6 md:grid-cols-2">
-        <div>
-          <h2 class="mono mb-6 inline-block border-b-4 border-blue-600 text-4xl font-bold">About Me</h2>
-          <p class="mb-6 text-lg leading-relaxed text-gray-700">
-            Hi, I’m <span class="font-bold">Aishwarya Chand</span> part engineer, part product nerd, part caffeine-powered optimizer of all things inefficient.
-          </p>
-          <p class="mb-6 text-lg leading-relaxed text-gray-700">
-            By day, I fine-tune Transformers and architect AI pipelines that (hopefully) don’t hallucinate. By night, I’m usually debugging things that were working 5 minutes ago. From deploying production chatbots to building sign-language models, I craft ML systems that actually help humans not just benchmarks.
-          </p>
-          <p class="mb-6 text-lg leading-relaxed text-gray-700">
-            I believe clean code is a love language, metrics matter but impact matters more, and no model is complete without a good story (and an ablation study).
-          </p>
-          <p class="mb-6 text-lg leading-relaxed text-gray-700">
-            When I’m not arguing with my models, you’ll find me  writing long-overdue Medium blogs, cooking something new or trying to look up a new place to explore.
-          </p>
-           <a href="#contact" class="mt-4 inline-block rounded-full bg-blue-600 px-8 py-3 font-semibold text-white hover:bg-blue-700">Let’s Connect</a>
-          </div>
-
-          <img src="https://aishwaryachand.github.io/assets/aboutme.jpeg" class="w-full rounded-xl shadow-lg" />
+    /*** SECTION WRAPPER ***/
+    const Section = ({id, title, children, muted=false}) => (
+      <section id={id} className={`${muted ? 'bg-gray-50' : 'bg-white'} py-20`}>
+        <div className="mx-auto max-w-7xl px-6">
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-center">{title}</h2>
+          <div className="mt-10">{children}</div>
         </div>
       </section>
     );
 
-    /**************** EDUCATION ****************/
-    const Education=()=>{
-      const schools=[
-        {degree:'Masters Computer Science (specialization in AI)',school:'University at Buffalo',period:'Jan 2024 – May 2025'},
-        {degree:'B.Tech Computer Science',school:'Jamia Hamdard University',period:'Jul 2018 – Jun 2022'},
+    /*** ABOUT ***/
+    const About = () => (
+      <Section id="about" title="About Me">
+        <div className="grid gap-10 md:grid-cols-2 items-center">
+          <div>
+            <p className="text-lg leading-relaxed text-gray-700">
+              Hi, I’m <span className="font-semibold">Aishwarya Chand</span> — I design and ship ML systems that
+              create real user impact. From production chatbots to sign-language models, I care about reliability,
+              latency, and measurable outcomes.
+            </p>
+            <p className="mt-4 text-lg leading-relaxed text-gray-700">
+              Clean code, clear metrics, and thoughtful product choices. When I’m not iterating on models, I write,
+              cook, or explore new places.
+            </p>
+            <a href="#contact" className="mt-6 inline-block rounded-full bg-brand-600 px-6 py-2 text-white font-medium hover:bg-brand-700">
+              Let’s Connect
+            </a>
+          </div>
+          <img src="https://aishwaryachand.github.io/assets/aboutme.jpeg" alt="About"
+               className="w-full rounded-2xl shadow"/>
+        </div>
+      </Section>
+    );
+
+    /*** EDUCATION ***/
+    const Education = () => {
+      const schools = [
+        {degree:"Masters Computer Science (AI)", school:"University at Buffalo", period:"Jan 2024 – May 2025"},
+        {degree:"B.Tech Computer Science", school:"Jamia Hamdard University", period:"Jul 2018 – Jun 2022"},
       ];
       return (
-        <section id="education" class="bg-gray-50 py-20">
-          <div class="mx-auto max-w-6xl px-6">
-            <h2 class="mono mb-12 text-center text-4xl font-bold">Education</h2>
-            <div class="space-y-8">
-              {schools.map((s)=>(
-                <div key={s.degree} class="code-card p-6">
-                  <h3 class="text-xl font-semibold text-blue-400">{s.degree}</h3>
-                  <p>{s.school}</p>
-                  <p class="text-sm text-gray-400">{s.period}</p>
-                </div>))}
-            </div>
-          </div>
-        </section>
-      );
-    };
-
-    /**************** EXPERIENCE ****************/
-   /* const Experience=()=>{
-     const jobs=[
-        {title:'Data Science Intern',company:'Human Behavior Modeling Lab, University at Buffalo',period:'Jan 2025 – Present',bullets:['Fine‑tuned Differential Transformers for ASL → text, boosting BLEU by +5.5.','Scaled data pipelines to 5M+ video frames, improving robustness.','Deployed F1‑0.88 classifier, reducing gloss‑level error by 21%.']},
-        {title:'Data Scientist',company:'Tata Consultancy Services',period:'Oct 2022 – Jan 2024',bullets:['Deployed triage chatbot (AWS Lex, Lambda), cutting wait time 45%.','Led LSTM retention model → +12% re‑engagement.','Built KPI dashboards in Tableau for product analytics.']},
-        {title:'Software Engineer',company:'3Pillar Global',period:'Dec 2021 – Jul 2022',bullets:['Optimized SQL & indexing → 35% lower latency in analytics APIs.']},
-      ];
-      return (
-        <section id="experience" class="bg-white py-20">
-          <div class="mx-auto max-w-6xl px-6">
-            <h2 class="mono mb-12 text-center text-4xl font-bold">Experience</h2>
-            <div class="space-y-10">
-              {jobs.map((j)=>(
-                <div key={j.title} class="code-card pl-8 pr-6 py-6">
-                  <h3 class="text-xl font-semibold text-blue-400">{j.title} · {j.company}</h3>
-                  <p class="mb-4 text-sm text-gray-400">{j.period}</p>
-                  <ul class="ml-4 list-disc space-y-2 text-gray-300">
-                    {j.bullets.map((b,i)=>(<li key={i}>{b}</li>))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      );
-    }; */
-  const Experience = () => {
-    const experiences = [
-      {
-        company: 'Human Behavior Modeling Lab, University at Buffalo',
-        location: 'Buffalo, NY',
-        title: 'Data Science Intern',
-        period: 'Jan 2025 – Present',
-      },
-      {
-        company: 'Tata Consultancy Services',
-        location: 'Remote, India',
-        title: 'Data Scientist',
-        period: 'Oct 2022 – Jan 2024',
-      },
-      {
-        company: '3Pillar Global',
-        location: 'Noida, India',
-        title: 'Software Engineer',
-        period: 'Dec 2021 – Jul 2022',
-      },
-      {
-        company: 'ShapeAI',
-        location: 'Remote',
-        title: 'Data Analyst Intern',
-        period: 'Mar 2021 – May 2021',
-      },
-      {
-        company: 'Predictiveye',
-        location: 'Remote',
-        title: 'Machine Learning Intern',
-        period: 'Jul 2019 – Jul 2020',
-      },
-    ];
-
-    return (
-      <section id="experience" class="bg-white py-20">
-        <div class="mx-auto max-w-4xl px-6">
-          <h2 class="mono mb-12 text-center text-4xl font-bold">Experience</h2>
-          <div class="relative border-l-4 border-blue-500 pl-6 space-y-12">
-            {experiences.map((exp, index) => (
-              <div key={index} class="relative">
-                <div class="absolute -left-3 top-1.5 w-5 h-5 bg-blue-600 rounded-full border-4 border-white shadow" />
-                <div class="bg-blue-50 rounded-lg p-6 shadow-md">
-                  <h3 class="text-xl font-semibold text-blue-800">{exp.title}</h3>
-                  <p class="text-gray-700 font-medium">{exp.company} · {exp.location}</p>
-                  <p class="text-sm text-gray-500">{exp.period}</p>
-                </div>
+        <Section id="education" title="Education" muted>
+          <div className="grid gap-6 md:grid-cols-2">
+            {schools.map(s => (
+              <div key={s.degree} className="rounded-2xl border bg-white p-6 shadow-sm">
+                <h3 className="text-xl font-semibold text-brand-700">{s.degree}</h3>
+                <p className="text-gray-700">{s.school}</p>
+                <p className="text-sm text-gray-500">{s.period}</p>
               </div>
             ))}
           </div>
-        </div>
-      </section>
-    );
-  };
+        </Section>
+      );
+    };
 
-
-    /**************** PROJECTS ****************/
-    const Projects=()=>{
-      const projects=[
-        { title: 'InsightMate – LLM-powered Feedback Analyzer',
-          desc: 'Secure local analysis over 100 K+ reviews with RAG & LLaMA-2; 91 % labeling accuracy.',
-          link: 'https://github.com/aishwaryachand/InsightMate'
-        },
-        { title: 'MindBridge – Mental-Health Chatbot',
-          desc: 'Multilingual chatbot leveraging GraphRAG + Qwen2, FastAPI backend.',
-          link: 'https://github.com/aishwaryachand/MindBridge'
-        },
-        { title: 'Customer Churn Prediction & Explainability',
-          desc: 'Random-Forest ensemble (ROC-AUC 0.90) + SHAP insights on Telco data.',
-          link: '#'
-        },
+    /*** EXPERIENCE – TIMELINE ***/
+    const Experience = () => {
+      const items = [
+        {company:'Human Behavior Modeling Lab, University at Buffalo', location:'Buffalo, NY', title:'Data Science Intern', period:'Jan 2025 – Present'},
+        {company:'Tata Consultancy Services', location:'Remote, India', title:'Data Scientist', period:'Oct 2022 – Jan 2024'},
+        {company:'3Pillar Global', location:'Noida, India', title:'Software Engineer', period:'Dec 2021 – Jul 2022'},
+        {company:'ShapeAI', location:'Remote', title:'Data Analyst Intern', period:'Mar 2021 – May 2021'},
+        {company:'Predictiveye', location:'Remote', title:'Machine Learning Intern', period:'Jul 2019 – Jul 2020'},
       ];
       return (
-        <section id="projects" class="bg-gray-50 py-20">
-          <div class="mx-auto max-w-7xl px-6">
-            <h2 class="mono mb-12 text-center text-4xl font-bold">Projects</h2>
-            <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {projects.map((p) => (
-                <div key={p.title} class="code-card p-6 hover:shadow-lg transition">
-                  <h3 class="mb-2 text-xl font-semibold text-blue-400">{p.title}</h3>
-                  <p class="mb-4 text-sm text-gray-300">{p.desc}</p>
-                  <a href={p.link} target="_blank" class="font-semibold text-blue-300 hover:underline">
-                    View Repo →
-                  </a>
+        <Section id="experience" title="Experience">
+          <div className="relative pl-6 md:max-w-3xl mx-auto">
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand-200 rounded"></div>
+            <div className="space-y-8">
+              {items.map((x, i) => (
+                <div key={i} className="relative">
+                  <span className="absolute -left-[11px] top-2 h-5 w-5 rounded-full bg-brand-600 ring-4 ring-brand-100"></span>
+                  <div className="rounded-xl bg-brand-50/60 p-5 border border-brand-100 shadow-sm">
+                    <h3 className="text-lg font-semibold text-brand-800">{x.title}</h3>
+                    <p className="text-gray-700">{x.company} · {x.location}</p>
+                    <p className="text-sm text-gray-500">{x.period}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
-        </section>
+        </Section>
       );
     };
 
-    /**************** BLOG ****************/
+    /*** PROJECTS ***/
+    const Projects = () => {
+      const projects = [
+        { title:'InsightMate – LLM-powered Feedback Analyzer',
+          desc:'Secure local analysis over 100K+ reviews with RAG & LLaMA-2; 91% labeling accuracy.',
+          link:'https://github.com/aishwaryachand/InsightMate'
+        },
+        { title:'MindBridge – Mental-Health Chatbot',
+          desc:'Multilingual chatbot leveraging GraphRAG + Qwen2, FastAPI backend.',
+          link:'https://github.com/aishwaryachand/MindBridge'
+        },
+        { title:'Customer Churn Prediction & Explainability',
+          desc:'Random-Forest ensemble (ROC-AUC 0.90) + SHAP insights on Telco data.',
+          link:'#'
+        },
+      ];
+      return (
+        <Section id="projects" title="Projects" muted>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {projects.map(p => (
+              <a key={p.title} href={p.link} target="_blank"
+                 className="group rounded-2xl border p-6 bg-white shadow-sm hover:shadow-md transition">
+                <div className="flex items-start justify-between">
+                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-brand-700">{p.title}</h3>
+                  <span className="text-xs rounded-full px-2 py-0.5 bg-gray-100 text-gray-600">Case Study</span>
+                </div>
+                <p className="mt-2 text-sm text-gray-600">{p.desc}</p>
+                <span className="mt-4 inline-block text-brand-700 font-medium">View Repo →</span>
+              </a>
+            ))}
+          </div>
+        </Section>
+      );
+    };
+
+    /*** BLOG ***/
     const Blog = () => {
       const posts = [
-        {
-          title: 'fit(), transform() & fit_transform() in scikit-learn',
-          excerpt: 'Demystifying preprocessing essentials.',
-          link: 'https://aishwarya-chand.medium.com/difference-fit-transform-and-fit-transform-method-in-scikit-learn-b0a4efcab804',
-        },
-        {
-          title: 'Building LLMs from Scratch – Part 1',
-          excerpt: 'Hands-on guide to transformers & pre-training.',
-          link: 'https://aishwarya-chand.medium.com/building-llms-from-scratch-part-1-concepts-architecture-and-foundations-55db4bccfb3f',
-        },
-        {
-          title: 'Navigating Grad Life at UB',
-          excerpt: 'Tips & lessons for international grads.',
-          link: 'https://aishwarya-chand.medium.com/navigating-grad-life-at-university-at-buffalo-my-personal-experience-1f827f25c5d0',
-        },
+        {title:'fit(), transform() & fit_transform() in scikit-learn', excerpt:'Demystifying preprocessing essentials.', link:'https://aishwarya-chand.medium.com/difference-fit-transform-and-fit-transform-method-in-scikit-learn-b0a4efcab804'},
+        {title:'Building LLMs from Scratch – Part 1', excerpt:'Hands-on guide to transformers & pre-training.', link:'https://aishwarya-chand.medium.com/building-llms-from-scratch-part-1-concepts-architecture-and-foundations-55db4bccfb3f'},
+        {title:'Navigating Grad Life at UB', excerpt:'Tips & lessons for international grads.', link:'https://aishwarya-chand.medium.com/navigating-grad-life-at-university-at-buffalo-my-personal-experience-1f827f25c5d0'},
       ];
       return (
-        <section id="blog" class="bg-gradient-to-br from-purple-100 to-pink-50 py-20">
-          <div class="mx-auto max-w-7xl px-6">
-            <h2 class="mono mb-12 text-center text-4xl font-bold text-gray-900">Featured Blogs</h2>
-            <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {posts.map((post) => (
-                <div key={post.title} class="code-card p-6 hover:shadow-lg transition">
-                  <h3 class="mb-2 text-lg font-semibold text-blue-400">{post.title}</h3>
-                  <p class="mb-4 text-sm text-gray-300">{post.excerpt}</p>
-                  <a href={post.link} target="_blank" class="font-semibold text-blue-300 hover:underline">
-                    Read More →
-                  </a>
-                </div>
-              ))}
-            </div>
+        <Section id="blog" title="Featured Blogs">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {posts.map(p => (
+              <a key={p.title} href={p.link} target="_blank"
+                 className="rounded-2xl border bg-white p-6 shadow-sm hover:shadow-md transition">
+                <h3 className="text-base font-semibold text-brand-700">{p.title}</h3>
+                <p className="mt-2 text-sm text-gray-600">{p.excerpt}</p>
+                <span className="mt-3 inline-block text-brand-700 font-medium">Read More →</span>
+              </a>
+            ))}
           </div>
-        </section>
+        </Section>
       );
     };
 
-    /**************** SKILLS ****************/
+    /*** SKILLS ***/
     const Skills = () => {
-   
       const skills = [
-        // Programming Languages
-        'C', 'C++', 'Python', 'Java', 'MATLAB', 'C#', '.NET', 'ASP.NET',
-        
-        // ML & DL Frameworks
-        'PyTorch', 'TensorFlow', 'Transformers', 'Hugging Face', 'Scikit-learn', 'Keras',
-        
-        // Data Engineering & SDE Tools
-        'Pandas', 'NumPy', 'Spark', 'Hadoop', 'Kafka', 'Airflow', 'FastAPI', 'Flask', 'Node.js',
-        
-        // Cloud & DevOps
-        'AWS', 'Azure', 'GCP', 'Docker', 'Git', 'CI/CD', 'Linux',
-        
-        // Data Tools & Analytics
-        'SQL', 'PostgreSQL', 'MySQL', 'MongoDB', 'Tableau', 'Power BI', 'Excel', 'A/B Testing', 'Data Cleaning', 'Feature Engineering',
-        
-        // Other Tools
-        'Jira', 'Confluence', 'VS Code', 'Jupyter Notebooks'
+        "C","C++","Python","Java","MATLAB","C#",".NET","ASP.NET",
+        "PyTorch","TensorFlow","Transformers","Hugging Face","Scikit-learn","Keras",
+        "Pandas","NumPy","Spark","Hadoop","Kafka","Airflow","FastAPI","Flask","Node.js",
+        "AWS","Azure","GCP","Docker","Git","CI/CD","Linux",
+        "SQL","PostgreSQL","MySQL","MongoDB","Tableau","Power BI","Excel","A/B Testing","Data Cleaning","Feature Engineering",
+        "Jira","Confluence","VS Code","Jupyter Notebooks"
       ];
-    
       return (
-        <section id="skills" class="bg-white py-20">
-          <div class="mx-auto max-w-6xl px-6">
-            <h2 class="mono mb-12 text-center text-4xl font-bold">Skills</h2>
-            <div class="flex flex-wrap justify-center gap-4">
-              {skills.map((s) => (
-                <span key={s} class="rounded-lg bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700 shadow">
-                  {s}
-                </span>
-              ))}
-            </div>
+        <Section id="skills" title="Skills" muted>
+          <div className="flex flex-wrap justify-center gap-3">
+            {skills.map(s => (
+              <span key={s} className="rounded-xl bg-brand-50 px-3 py-2 text-sm text-brand-800 border border-brand-100">
+                {s}
+              </span>
+            ))}
           </div>
-        </section>
+        </Section>
       );
     };
 
-
-    /**************** CONTACT ****************/
+    /*** CONTACT ***/
     const Contact = () => (
-      <section id="contact" class="bg-gray-50 py-20">
-        <div class="mx-auto max-w-xl px-6 text-center">
-          <h2 class="mono mb-6 text-4xl font-bold">Get in Touch</h2>
-          <p class="mb-8 text-gray-700">
-            Want to collaborate or have a question? Reach out and I’ll respond as soon as possible!
+      <Section id="contact" title="Get in Touch">
+        <div className="mx-auto max-w-xl text-center">
+          <p className="text-gray-700">
+            Want to collaborate or have a question? Reach out and I’ll respond as soon as possible.
           </p>
-          <div class="flex justify-center space-x-6 text-xl">
-            <a href="mailto:aishwarya7811@gmail.com" class="text-blue-600 hover:text-blue-800">Email</a>
-            <a href="https://linkedin.com/in/aishwarya-chand" class="text-blue-600 hover:text-blue-800">LinkedIn</a>
-            <a href="https://github.com/aishwaryachand" class="text-blue-600 hover:text-blue-800">GitHub</a>
-            <a href="https://aishwarya-chand.medium.com" class="text-blue-600 hover:text-blue-800">Medium</a>
+          <div className="mt-6 flex justify-center gap-6 text-brand-700 font-medium">
+            <a href="mailto:aishwarya7811@gmail.com" className="hover:underline">Email</a>
+            <a href="https://linkedin.com/in/aishwarya-chand" className="hover:underline">LinkedIn</a>
+            <a href="https://github.com/aishwaryachand" className="hover:underline">GitHub</a>
+            <a href="https://aishwarya-chand.medium.com" className="hover:underline">Medium</a>
           </div>
         </div>
-      </section>
+      </Section>
     );
 
-    /**************** APP ****************/
-    const App = () => (
-      <div>
-        <Navbar />
-        <Hero />
-        <AboutMe />
-        <Education />
-        <Experience />
-        <Projects />
-        <Blog />
-        <Skills />
-        <Contact />
-      </div>
+    /*** FOOTER ***/
+    const Footer = () => (
+      <footer className="border-t py-10 text-sm text-gray-600">
+        <div className="mx-auto max-w-7xl px-6 flex items-center justify-between">
+          <div>© {new Date().getFullYear()} Aishwarya Chand</div>
+          <a href="#home" className="rounded-full border px-3 py-1 hover:bg-gray-50">Back to top</a>
+        </div>
+      </footer>
     );
 
-    /* ---------- Mount React ---------- */
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
+    /*** APP ***/
+    const App = () => {
+      // highlight active nav
+      React.useEffect(() => {
+        const ids = links.map(l => l.toLowerCase());
+        const nav = document.querySelectorAll("nav a[href^='#']");
+        const map = {};
+        nav.forEach(a => { map[a.getAttribute("href").slice(1)] = a; });
+
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            const id = e.target.id;
+            if (e.isIntersecting) {
+              nav.forEach(a => a.classList.remove("nav-active"));
+              map[id]?.classList.add("nav-active");
+            }
+          });
+        }, { rootMargin: "-40% 0px -55% 0px", threshold: 0.01 });
+
+        ids.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) obs.observe(el);
+        });
+        return () => obs.disconnect();
+      }, []);
+
+      return (
+        <>
+          <Navbar/>
+          <Hero/>
+          <About/>
+          <Education/>
+          <Experience/>
+          <Projects/>
+          <Blog/>
+          <Skills/>
+          <Contact/>
+          <Footer/>
+        </>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App/>);
   </script>
 </body>
 </html>
