@@ -361,61 +361,193 @@ const Experience = () => {
 };
 
     /*** PROJECTS ***/
+// ==== PROJECTS (Tabbed or Stacked) ====
 const Projects = () => {
-  const projects = [
-    {
-      title: "Real-Time Inventory Alert System",
-      desc: "Event-driven backend (FastAPI, PostgreSQL, Docker, JWT). Webhooks + background workers; idempotent updates; prod-style logging.",
-      link: "#"
-    },
-    {
-      title: "Dynamic Pricing Engine",
-      desc: "Rule + ML-assisted pricing service with feature flags, FastAPI APIs, and audit trails; batch/offline sims + A/B hooks.",
-      link: "#"
-    },
-    {
-      title: "Feature Flag Management API",
-      desc: "Multi-env flags (FastAPI, PostgreSQL, Alembic, Docker). SDK-friendly REST; RBAC; migrations; zero-downtime rollout.",
-      link: "#"
-    },
-    {
-      title: "Embedding Service for Personalized Search",
-      desc: "PyTorch + FAISS vector service with Redis caching; batched inference; retrieval metrics dashboard.",
-      link: "#"
-    },
-    {
-      title: "LLM-Powered User Summary Engine",
-      desc: "RAG-style summarizer endpoints with prompt templates, eval harness, and safety filters; async queues for throughput.",
-      link: "#"
-    },
-    {
-      title: "Event-Driven E-Commerce Order Processing",
-      desc: "Java + Spring Boot + Kafka microservices; saga/compensation basics; retry/DLQ; observability in logs/metrics.",
-      link: "#"
-    },
-  ];
+  // Set to false if you prefer stacked sections one after another
+  const USE_TABS = true;
 
+  const DATA = {
+    backend: {
+      label: "Backend SWE",
+      projects: [
+        {
+          title: "Real-Time Inventory Alert System",
+          oneLiner:
+            "Event-driven backend with webhooks, background workers, and idempotent updates.",
+          tech: ["FastAPI", "PostgreSQL", "Docker", "JWT"],
+          link: "https://github.com/aishwaryachand/real-time-inventory-alert-system" // <-- update if different
+        },
+        {
+          title: "Dynamic Pricing Engine",
+          oneLiner:
+            "Rule + ML-assisted pricing, feature flags, audit trails, and simulation hooks.",
+          tech: ["Python", "FastAPI", "PostgreSQL", "Feature Flags"],
+          link: "https://github.com/aishwaryachand/dynamic-pricing-engine" // <-- update if different
+        },
+        {
+          title: "Feature Flag Management API",
+          oneLiner:
+            "Multi-env flags with RBAC, migrations, and safe rollouts.",
+          tech: ["FastAPI", "PostgreSQL", "Alembic", "Docker"],
+          link: "https://github.com/aishwaryachand/Feature-flag-api"
+        },
+        {
+          title: "Event-Driven E-Commerce Order Processing",
+          oneLiner:
+            "Microservices for order/payment/fulfillment with saga basics and DLQs.",
+          tech: ["Java", "Spring Boot", "Kafka", "Docker"],
+          link: "https://github.com/aishwaryachand/HyperCart-Event-Driven-E-Commerce-Order-Processing-System"
+        }
+      ]
+    },
+    genai: {
+      label: "LLM / GenAI",
+      projects: [
+        {
+          title: "Embedding Service for Personalized Search",
+          oneLiner:
+            "Vector search APIs with batched inference and caching.",
+          tech: ["PyTorch", "FAISS", "Redis", "FastAPI"],
+          link: "https://github.com/aishwaryachand/embedding-service" // <-- update if different
+        },
+        {
+          title: "LLM-Powered User Summary Engine",
+          oneLiner:
+            "RAG endpoints with prompt templates, eval harness, and safety filters.",
+          tech: ["Python", "OpenAI/LLM", "LangChain", "FastAPI"],
+          link: "https://github.com/aishwaryachand/user-summary-engine" // <-- update if different
+        },
+        {
+          title: "RegLens: Financial Chat Retrieval Bot",
+          oneLiner:
+            "Citation-backed Q&A over 5K+ SEC filings via RAG.",
+          tech: ["LLaMA 2", "LangChain", "FAISS", "Python"],
+          link: "https://github.com/aishwaryachand/reglens" // <-- update if different
+        },
+        {
+          title: "MindBridge – Mental-Health Chatbot",
+          oneLiner:
+            "Multilingual assistant using GraphRAG and structured prompts.",
+          tech: ["Qwen2", "GraphRAG", "FastAPI", "Python"],
+          link: "https://github.com/aishwaryachand/MindBridge"
+        }
+      ]
+    }
+  };
+
+  // ---- Card component ----
+  const Card = ({ p }) => (
+    <a
+      href={p.link}
+      target="_blank"
+      className="group rounded-2xl border bg-white p-6 shadow-sm hover:shadow-md transition block"
+    >
+      <div className="flex items-start justify-between gap-3">
+        <h3 className="text-lg font-semibold text-gray-900 group-hover:text-brand-700">
+          {p.title}
+        </h3>
+        <span className="text-xs rounded-full px-2 py-0.5 bg-gray-100 text-gray-600 whitespace-nowrap">
+          GitHub →
+        </span>
+      </div>
+      <p className="mt-2 text-sm text-gray-600">{p.oneLiner}</p>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {p.tech.slice(0, 4).map((t) => (
+          <span
+            key={t}
+            className="rounded-full bg-brand-50 px-2.5 py-1 text-xs text-brand-800 border border-brand-100"
+          >
+            {t}
+          </span>
+        ))}
+      </div>
+    </a>
+  );
+
+  // ---- Tabs UI ----
+  const [tab, setTab] = React.useState("backend");
+
+  if (!USE_TABS) {
+    // Stacked layout: Backend section then GenAI section
+    return (
+      <section id="projects" className="bg-gray-50 py-20">
+        <div className="mx-auto max-w-7xl px-6">
+          <h2 className="font-display text-4xl font-bold text-center">Projects</h2>
+
+          {/* Backend SWE */}
+          <div className="mt-10">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xl font-semibold text-gray-900">
+                {DATA.backend.label}
+              </h3>
+              <span className="text-sm text-gray-500">
+                {DATA.backend.projects.length} projects
+              </span>
+            </div>
+            <div className="mt-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {DATA.backend.projects.map((p) => <Card key={p.title} p={p} />)}
+            </div>
+          </div>
+
+          {/* GenAI */}
+          <div className="mt-14">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xl font-semibold text-gray-900">
+                {DATA.genai.label}
+              </h3>
+              <span className="text-sm text-gray-500">
+                {DATA.genai.projects.length} projects
+              </span>
+            </div>
+            <div className="mt-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {DATA.genai.projects.map((p) => <Card key={p.title} p={p} />)}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Tabs layout
   return (
     <section id="projects" className="bg-gray-50 py-20">
       <div className="mx-auto max-w-7xl px-6">
         <h2 className="font-display text-4xl font-bold text-center">Projects</h2>
-        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map(p => (
-            <a key={p.title} href={p.link} target="_blank"
-               className="group rounded-2xl border bg-white p-6 shadow-sm hover:shadow-md transition">
-              <div className="flex items-start justify-between">
-                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-brand-700">{p.title}</h3>
-                <span className="text-xs rounded-full px-2 py-0.5 bg-gray-100 text-gray-600">Backend</span>
-              </div>
-              <p className="mt-2 text-sm text-gray-600">{p.desc}</p>
-              <span className="mt-4 inline-block text-brand-700 font-medium">View Repo →</span>
-            </a>
-          ))}
+
+        {/* Tabs */}
+        <div className="mt-8 flex justify-center">
+          <div className="inline-flex rounded-full border bg-white p-1">
+            {[
+              { key: "backend", label: DATA.backend.label },
+              { key: "genai", label: DATA.genai.label },
+            ].map((t) => (
+              <button
+                key={t.key}
+                onClick={() => setTab(t.key)}
+                className={
+                  "px-4 py-2 text-sm rounded-full transition " +
+                  (tab === t.key
+                    ? "bg-brand-600 text-white"
+                    : "text-gray-700 hover:bg-gray-50")
+                }
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Grid */}
+        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {(tab === "backend" ? DATA.backend.projects : DATA.genai.projects).map(
+            (p) => <Card key={p.title} p={p} />
+          )}
         </div>
       </div>
     </section>
   );
 };
+
 
 
     /*** BLOG ***/
