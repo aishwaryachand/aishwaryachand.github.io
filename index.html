@@ -285,34 +285,80 @@ const Education = () => {
 
 
     /*** EXPERIENCE – TIMELINE ***/
-    const Experience = () => {
-      const items = [
-        {company:'Human Behavior Modeling Lab, University at Buffalo', location:'Buffalo, NY', title:'Data Science Intern', period:'Jan 2025 – Present'},
-        {company:'Tata Consultancy Services', location:'Remote, India', title:'Data Scientist', period:'Oct 2022 – Jan 2024'},
-        {company:'3Pillar Global', location:'Noida, India', title:'Software Engineer', period:'Dec 2021 – Jul 2022'},
-        {company:'ShapeAI', location:'Remote', title:'Data Analyst Intern', period:'Mar 2021 – May 2021'},
-        {company:'Predictiveye', location:'Remote', title:'Machine Learning Intern', period:'Jul 2019 – Jul 2020'},
-      ];
-      return (
-        <Section id="experience" title="Experience">
-          <div className="relative pl-6 md:max-w-3xl mx-auto">
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand-200 rounded"></div>
-            <div className="space-y-8">
-              {items.map((x, i) => (
-                <div key={i} className="relative">
-                  <span className="absolute -left-[11px] top-2 h-5 w-5 rounded-full bg-brand-600 ring-4 ring-brand-100"></span>
-                  <div className="rounded-xl bg-brand-50/60 p-5 border border-brand-100 shadow-sm">
-                    <h3 className="text-lg font-semibold text-brand-800">{x.title}</h3>
-                    <p className="text-gray-700">{x.company} · {x.location}</p>
-                    <p className="text-sm text-gray-500">{x.period}</p>
-                  </div>
-                </div>
-              ))}
+const Experience = () => {
+  const roles = [
+    {
+      title: "Research Assistant / AI Software Engineer",
+      company: "Human Behavior Modeling Lab, University at Buffalo",
+      location: "Buffalo, NY",
+      period: "Jan 2025 – Present",
+      bullets: [
+        "Built production-ready Python microservices with FastAPI + Docker to serve multimodal AI applications.",
+        "Integrated Large Language Models (LLMs) into retrieval-augmented workflows for real-time summarization and data extraction.",
+
+      ]
+    },
+    {
+      title: "Software Engineer",
+      company: "Tata Consultancy Services ",
+      location: "Remote, India",
+      period: "Oct 2022 – Jan 2024",
+      bullets: [
+        "Built a claims automation platform in Java, Spring Boot, AWS (Lambda, RDS, S3) handling 10K+ daily transactions; cut manual effort by 40%.",
+        "Developed secure REST APIs with JWT + RBAC,Optimized SQL queries and schema design",
+        "Automated CI/CD pipelines with Git, Jenkins, Docker",
+      ]
+    },
+    {
+      title: "Software Engineer",
+      company: "3Pillar Global (Client: Fortune 500 Financial Services)",
+      location: "Noida, India",
+      period: "Dec 2021 – Sep 2022",
+      bullets: [
+        "Built merchant payment microservices in Java, Spring Boot, React; integrated Visa/Mastercard APIs for secure transactions.",
+        "Designed a credit risk scoring service in Java + SQL to detect anomalies and flag fraud in real time.",
+        "Contributed to distributed systems with Kafka-based asynchronous messaging for scalability.",
+
+      ]
+    },
+    {
+      title: "Software Developer",
+      company: "Predictiveye",
+      location: "Remote",
+      period: "Dec 2019 – Dec 2021",
+      bullets: [
+        "Developed backend services in Python/Django for payment analytics with secure JWT authentication and RBAC.",
+        "Enhanced event-driven pipelines for high-volume financial data; resolved concurrency issues to improve uptime.",
+
+      ]
+    }
+  ];
+
+  return (
+    <section id="experience" className="bg-white py-20">
+      <div className="mx-auto max-w-6xl px-6">
+        <h2 className="font-display text-4xl font-bold text-center">Experience</h2>
+        <div className="mt-12 relative border-l-2 border-brand-200 pl-6 space-y-12">
+          {roles.map((role, idx) => (
+            <div key={idx} className="relative">
+              <span className="absolute -left-3 top-2 h-5 w-5 rounded-full bg-brand-600 ring-4 ring-brand-100" />
+              <div className="bg-gray-50 rounded-lg p-6 shadow hover:shadow-md transition">
+                <h3 className="text-lg font-semibold text-brand-700">{role.title}</h3>
+                <p className="text-gray-700">{role.company} · {role.location}</p>
+                <p className="text-sm text-gray-500 mb-4">{role.period}</p>
+                <ul className="list-disc ml-5 space-y-2 text-gray-700 text-sm">
+                  {role.bullets.map((b, i) => (
+                    <li key={i}>{b}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
-          </div>
-        </Section>
-      );
-    };
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
 
     /*** PROJECTS ***/
 const Projects = () => {
